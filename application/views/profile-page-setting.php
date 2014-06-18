@@ -189,7 +189,7 @@
 										  		</span>
 										  	</p>
 										</form>
-										<form method="post" enctype="multipart/form-data" name="update_child_data_<?php echo $y; ?>" id="update_child_data_<?php echo $y; ?>">
+										<form  method="post" enctype="multipart/form-data" name="update_child_data_<?php echo $y; ?>" id="update_child_data_<?php echo $y; ?>">
 											<input type="hidden" id="child_picture_<?php echo $y; ?>" name="child_picture_<?php echo $y; ?>" value="<?php echo $childrenvalue[$x]['child_pictures'];?>">
 											<input type="hidden" id="objectId" name="objectId" value="<?php echo $childrenvalue[$x]['objectId'];?>">
 										  	<p class="row">
@@ -244,8 +244,12 @@
 										  	<p><button type="button" class="btn btn-default" id="uploadbutton_<?php echo $y; ?>" name="uploadbutton_<?php echo $y; ?>" value="<?php echo $y; ?>" onclick="updateChildInfo('<?php echo $y; ?>');">Save</button>											
 									  	</form>
 										<?php }?>
+										
 									  </div>
 									</div>
+									<div id="addchild"></div>
+									
+									<p><button type="button" class="btn btn-default" id="AddChild-btn">Add Child</button></p>
 								</div>
 							</div>
 						</section>
@@ -282,7 +286,5 @@
 <script>
 		$("#btn-resetpw-form").click(function(){
 			$('#DialogResetPw').modal();
-		});	
-
-	    
+		});		    
 </script>

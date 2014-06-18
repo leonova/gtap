@@ -278,6 +278,69 @@ for (var yr_value = 1920; yr_value <= curryear; yr_value++) {
 $(".bday").append(dob_day);
 $(".byear").append(dob_yr);
 
+//append New Child form
+var childnum =  1;
+var childform ="";
 
+$('#AddChild-btn').click(function(){
+alert('hi');
+	childnum++;
+	childform ="";
+	childform = '<form class="tabform">'+
+										  	'<h2>Child ' + childnum + ':</h2>'+
+										  	'<p class="row">'+
+										 	'<span class="col-xs-3">'+
+										'			<img class="media-object" src="/resources/images/squre-thumbnail.jpg" alt="...">'+
+										'			Image of your child'+
+										  	'	</span>'+
+										  	'	<span class="col-xs-9">'+
+													'<input type="file" name="uploaded-images">'+
+													'Image not bigger than 100 by 100 and 2MB in size.'+
+										  		'</span>'+
+										  	'</p>'+
+										  	'<p class="row">'+
+										  		'<span class="col-xs-6"><label for="child-first-name">First Name:</label>'+
+										  			'<input type="text" name="child-first-name" id="child-first-name" class="form-control">'+
+										  		'</span>'+
+										  		'<span class="col-xs-6"><label for="child-last-name">Last Name:</label>'+
+										  		'	<input type="text" name="child-last-name" id="child-last-name" class="form-control">'+
+										  		'</span>'+
+										  	'</p>'+
+										  	'<p>'+
+											  			'<label>Date of birth:<span>*</span></label>'+
+									                   ' <select name="child_bmon" id="child_bmon" tabindex="11">'+
+									                     '   <option value="">Month</option>'+
+									                      '  <option value="1">Jan</option>'+
+									                     '  <option value="2">Feb</option>'+
+									                      '  <option value="3">Mar</option>'+
+									                       ' <option value="4">Apr</option>'+
+									                       ' <option value="5">May</option>'+
+									                     '   <option value="6">Jun</option>'+
+									                     '   <option value="7">Jul</option>'+
+									                      '  <option value="8">Aug</option>'+
+									                      '  <option value="9">Sep</option>'+
+									                      '  <option value="10">Oct</option>'+
+									                      '  <option value="11">Nov</option>'+
+									                      '  <option value="12">Dec</option>'+
+									                   ' </select>'+
+									                  '  <select class="first bday" name="bday" id="bday" tabindex="12">'+
+									                   '     <option value="">Day</option>		'+							                        
+									                  '  </select>'+
+									                 '   <select name="byear" id="byear" class="byear" tabindex="13">'+
+									                 '       <option value="">Year</option>	'+								                        
+									                  '  </select>'+
+										  	'</p>'+
+										  	'<p><label for="child-interest">Interests: ( seperate by commas) </label>'+
+										  		'<input type="text" name="child-interest" class="form-control">'+
+										  	'</p>'+
+										  	'<p><label for="child-fav-activities">Favourite activities: ( seperate by commas) </label>'+
+										  		'<input type="text" name="child-fav-activities" class="form-control">'+
+										  	'</p>'+
+										  	'<p><label for="child-fav-books">Favourite books: ( seperate by commas) </label>'+
+										  		'<input type="text" name="child-fav-books" class="form-control">'+
+										  	'</p>'+
+										  	'<p><button type="button" class="btn btn-default">Save</button></p>'+'</form>'
+		$('#addchild').append(childform);			  	
+});
 
 
