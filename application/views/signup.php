@@ -7,8 +7,8 @@
 			   <div class="modal-header">
 		        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" onclick="logout();">×</button>
 		        <h4 id="myModalLabel" class="modal-title">Sign Up to theAsianparent</h4>				
-				<p><button id="fb-login" class="btn fb-signin" type="button" onclick='fbSignUp();'>Facebook</button>
-				<span data-cookiepolicy="single_host_origin" data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read" data-clientid="986342482176-mmuncr0raoj4b024rtpqheafui548s6l.apps.googleusercontent.com" data-approvalprompt="force" data-callback="signupFinishedCallback" class="g-signin" id="g_signup">
+				<p><button id="fb-login" class="btn fb-signin" type="button" onclick='checkLoginState();'>Facebook</button>
+				<span data-cookiepolicy="single_host_origin" data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read" data-clientid="986342482176-mmuncr0raoj4b024rtpqheafui548s6l.apps.googleusercontent.com" data-approvalprompt="force" data-callback="loginFinishedCallback" class="g-signin" id="g_signup">
 					<button class="btn g-plus-signin" type="button"> Google+</button>				
 				</span>	
 				</p>
@@ -84,9 +84,13 @@
 						<button onclick="tm_signup();" id="signup-btn" class="btn btn-default" type="button">Sign Up</button>
 					</p>
 		        </form>
+				<form name="addSession" id="addSession" action="javascript;;" method="post" accept-charset="utf-8" style="display:none;">
+				    <input type='text' id='userdata' name='userdata'><br>   
+				    <input type="submit">
+			    </form>
 		      </div>
 		      <div class="modal-footer">
-		      	<p><strong>Already a member? <a id="toggleLogin" class="toggleDialog" href="/<?php echo add_url; ?>/user/login">Sign In here</a></strong></p>
+		      	<p><strong>Already a member? <a id="toggleLogin" class="toggleDialog" href="/user/login">Sign In here</a></strong></p>
 		      	<!--<small>By registering to theAsianParent, you agree to our <a href="#">Terms and Privacy Policy</a></small>-->
 		      </div>
 		    </div>

@@ -395,18 +395,26 @@
 							<a title="LOGIN" data-toggle="modal" data-target="#myModal" id="user-login" style="cursor:pointer">LOGIN</a>									
 							</li>
 							<?php } else{?>
-								<a href="#" title="<?php echo $name; ?>" id="user-loggedin" data-toggle="dropdown">
-										<img src="<?php echo $image; ?>" alt="user-name" width="44" />
+								<a href="#" title="<?php echo $name; ?>" id="user-loggedin" data-toggle="dropdown">										
+										<?php if (!empty($image)){?>
+											<img src="<?php echo $image; ?>" alt="<?php echo $name; ?>" id="user_avatar" width="44" height="44" />
+										<?php }else{?>
+											<img src="/resources/images/gtap.jpg" width="44" id="user_avatar" height="44"/>
+										<?php }?>											
 									</a>
 									<ul class="dropdown-menu user-profile-dropdown" role="menu" aria-labelledby="dropdownMenu1">
 										<li class="media">
 											<a class="pull-left" href="#">
-												<img src="<?php echo $image; ?>" alt="user-name" width="44" />
+												<?php if (!empty($image)){?>
+													<img src="<?php echo $image; ?>" id="user_image" alt="<?php echo $name; ?>" width="44" height="44" />
+												<?php }else{?>
+													<img src="/resources/images/gtap.jpg" id="user_image" width="44" height="44"/>
+												<?php }?>	
 											</a>
 											<div class="media-body">
 												<h4 class="media-heading">Hello, <a href="#"><?php echo $name; ?></a></h4>
 												<small><?php echo $email; ?></small>
-												<p><a href="<?php echo base_url(); ?><?php echo add_url; ?>/user/profile">Account Settings</a></p>
+												<p><a href="/user/profile">Account Settings</a></p>
 											</div>
 										</li>
 										<li role="presentation" class="divider"></li>

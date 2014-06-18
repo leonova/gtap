@@ -40,7 +40,6 @@ $root = "//".$_SERVER['HTTP_HOST'];
 $root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
 
 define('base_path_url',$root);
-define('add_url','index.php');
 
 //define('appID',				'774110582613099');
 //define('appSecret',		'60017e0135f4b03aba56a9decaf306da');

@@ -64,7 +64,7 @@ class parseRestClient{
     			'X-Parse-Session-Token: '.$args['sessionToken']
     		));
 		}
-		else{
+		else{		
 			curl_setopt($c, CURLOPT_HTTPHEADER, array(
 				'Content-Type: application/json',
 				'X-Parse-Application-Id: '.$this->_appid,
@@ -95,9 +95,16 @@ class parseRestClient{
     		$url = $url.'?'.$urlParams;
 		}
 
+		if ($url !="https://api.parse.com/1/users"){
+			if($args['action'] == 'add' || $args['action'] == 'update'){
+				$url = $this->_parseurl .'classes/'.$args['requestUrl'];
+			}
+		}
+		//echo $url;		
 		curl_setopt($c, CURLOPT_URL, $url);
 
 		$response = curl_exec($c);
+		
 		$responseCode = curl_getinfo($c, CURLINFO_HTTP_CODE);
 
 		$expectedCode = array('200');

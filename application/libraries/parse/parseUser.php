@@ -35,6 +35,7 @@ class parseUser extends parseRestClient{
 			$request = $this->request(array(
 				'method' => 'GET',
 	    		'requestUrl' => 'login',
+				'action' => 'login',
 		    	'data' => array(
 		    		'username' => $this->data['username'],
 					'password' => $this->data['password']		    	
@@ -49,7 +50,19 @@ class parseUser extends parseRestClient{
 		}
 	
 	}
-
+	
+	public function setUpSettings(){
+	
+			$request = $this->request(array(
+				'method' => 'POST',
+	    		'requestUrl' => 'UserSettings',
+				'data' => $this->data,
+				'action'=>'add'
+			));
+			
+	    	return $request;			
+	}
+	
 	public function uploadPic(){	
 		if(!empty($this->data)	){
 			$request = $this->request(array(
@@ -101,22 +114,41 @@ public function socialLogin(){
 		
 	}
 	//TODO: should make the parseUser contruct accept the objectId and update and delete would only require the sessionToken
-	public function update($objectId,$sessionToken){
-		if(!empty($objectId) || !empty($sessionToken)){
-			$request = $this->request(array(
-				'method' => 'PUT',
-				'requestUrl' => 'users/'.$objectId,
-	    		'sessionToken' => $sessionToken,
-				'data' => $this->data
-			));
+	public function updateNonUser($objectId, $class, $sessionToken){	
+			if(!empty($objectId)){
+				$request = $this->request(array(
+					'method' => 'PUT',
+					'requestUrl' => $class.'/'.$objectId,					
+					'data' => $this->data,
+					'sessionToken' => $sessionToken,
+					'action'=>'update'
+				));
+				
+				return $request;			
+			}
+			else{
+				$this->throwError('objectId and sessionToken are required for the update method');
+			}
 			
-	    	return $request;			
-		}
-		else{
-			$this->throwError('objectId and sessionToken are required for the update method');
 		}
 		
-	}
+	public function update($objectId, $class, $sessionToken){	
+			if(!empty($objectId)){
+				$request = $this->request(array(
+					'method' => 'PUT',
+					'requestUrl' => $class.'/'.$objectId,					
+					'data' => $this->data,
+					'sessionToken' => $sessionToken,
+					'action'=>'updateuser'
+				));
+				
+				return $request;			
+			}
+			else{
+				$this->throwError('objectId and sessionToken are required for the update method');
+			}
+			
+		}
 
 	public function delete($objectId,$sessionToken){
 		if(!empty($objectId) || !empty($sessionToken)){

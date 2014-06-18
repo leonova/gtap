@@ -6,21 +6,27 @@
 					<div id="right-content-section" class="col-xs-8">
 						<section id="article-section">
 							<div class="article-header user-profile-page">
-								<h1>Profile Settings</h1>
+								<h1>Profile Settings</h1><input type="hidden" name="childcount" id="childcount" value="<?php echo $childrencount; ?>">
 								<div class="user-profile-info row">
-									<figure class="col-xs-2" id="user-photo">										
-										<div id="profile_pic">	<img src="<?php echo $image; ?>" /></div>
+									<figure class="col-xs-2" id="user-photo">	
+										<div id="profile_pic">
+											<?php if (!empty($image)){?>
+													<img src="<?php echo $image; ?>" style="width:102px" />
+											<?php }else{?>
+												<img src="/resources/images/gtap.jpg" style="width:102px" />
+											<?php }?>	
+										</div>
 										<form id="fileupload" name="fileupload" enctype="multipart/form-data" method="post">
 										  <fieldset>
 											<input type="file" name="imageInput" id="imageInput"></input>
-											<input id="uploadbutton" type="button" value="Edit Photo"/>
+											<input id="uploadbutton" type="button" value="Upload Photo"/>
 										  </fieldset>
 										</form>
 									</figure>
 									<div class="col-xs-10">
 										<ul>
-											<li><input type="checkbox" name="keep_myinfo_private" id="keep_myinfo_private" value="1"> Keep my information private ( only your name and picuture will be shown ) </li>
-											<li><input type="checkbox" name="keep_childreninfo_private" id="keep_childreninfo_private" value="1"> Keep my children’s information private</li>
+											<li><input type="checkbox" name="keep_myinfo_private" id="keep_myinfo_private" value="1" <?php if ($keep_myinfo_private=="1"){ echo "checked"; } ?> > Keep my information private ( only your name and picuture will be shown ) </li>
+											<li><input type="checkbox" name="keep_childreninfo_private" id="keep_childreninfo_private" value="1" <?php if ($keep_childreninfo_private=="1"){ echo "checked"; } ?>> Keep my children’s information private</li>
 										</ul>
 									</div>
 								</div>
@@ -35,9 +41,10 @@
 									<!-- Tab panes -->
 									<div class="tab-content">
 									  <div class="tab-pane active" id="general-profile-tab">
-									  	<form action="#">
-										<input type="hidden" id="profilepic" name="profilepic">
-									  		<p><label for="full-name">Name:<span>*</span></label><input type="text" name="full-name" id="full-name" class="form-control" value="<?php echo $name; ?>"></p>									  		
+									  	<form action="#" id="profileform" name="profileform">
+										<input type="hidden" id="profile_picture" name="profile_picture" value="<?php echo $image;?>">
+										<input type="hidden" name="user-id" id="user-id" value="<?php echo $id;?>">
+									  		<p><label for="full-name">Name:<span>*</span></label><input type="text" name="fullname" id="fullname" class="form-control" value="<?php echo $name; ?>"></p>									  		
 									  		<ul class="row gender-info">
 									  			<li class="col-xs-3">
 										  			<label for="gender">Gender:<span>*</span></label>
@@ -67,7 +74,7 @@
 														$day='';
 													}	
 													?>
-								                    <select name="bmon" id="bmon" tabindex="7">
+								                    <select name="bmonth" id="bmonth" tabindex="7">
 									                        <option value="">Month</option>
 									                        <option value="01" <?php if ($month=="01"){ echo "selected"; } ?> >Jan</option>
 									                        <option value="02" <?php if ($month=="02"){ echo "selected"; } ?>>Feb</option>
@@ -82,19 +89,19 @@
 									                        <option value="11" <?php if ($month=="11"){ echo "selected"; } ?>>Nov</option>
 									                        <option value="12" <?php if ($month=="12"){ echo "selected"; } ?>>Dec</option>
 									                    </select>
-									                    <select class="first bday" name="user_bday" id="user_bday" tabindex="8">
+									                    <select class="first bday" name="bday" id="bday" tabindex="8">
 									                        <option value="">Day</option>	
 															<?php echo $bday;?>
 									                    </select>
 														
-									                    <select name="user_byear" id="user_byear" class="byear1" tabindex="9">
+									                    <select name="byear" id="byear" class="byear1" tabindex="9">
 									                        <option value="">Year</option>									                        
 															<?php echo $byearmain;?>
 									                    </select>
 												</li>
 									  		</ul>
 									  		<h3>Contact information</h3>
-									  		<p><label for="email">Email Address:<span>*</span></label><input type="hidden" name="oldemail" id="oldemail" class="form-control"> <input type="text" name="email" id="email" value="<?php echo $email; ?>" class="form-control"></p>
+									  		<p><label for="email">Email Address:<span>*</span></label><input type="hidden" name="oldemail" id="oldemail" class="form-control" value="<?php echo $email;?>"> <input type="text" name="email" id="email" onblur="checkEmail();" value="<?php echo $email; ?>" class="form-control"></p>
 									  		<p><label for="re-email">Re-enter Email Address:<span>*</span></label><input type="text" name="re-email" id="re-email" disabled="disabled" class="form-control"></p>
 									  		<p><label for="phone-number">Phone number:</label><input type="text" name="phone-number" id="phone-number" value="<?php echo $phone; ?>" class="form-control"></p>
 									  		<p>
@@ -128,74 +135,115 @@
 								                </li>
 									  		</ul>
 									  		<h3>Your interests: (min. 3 interests)<span>*</span></h3>
+											<?php $interest='interest value:'.$interest;?>
 									  		<ul class="your-interest-list" id="interests">
-									  			<li><input type="checkbox" id='pregnancy' name="your-interest[]" value="Pregnancy"> Pregnancy</li>
-									  			<li><input type="checkbox" id='infancy' name="your-interest[]" value="Infancy"> Infancy</li>
-									  			<li><input type="checkbox" id='toddlerhood' name="your-interest[]" value="Toddlerhood"> Toddlerhood</li>
-									  			<li><input type="checkbox" id='childhood' name="your-interest[]" value="Childhood"> Childhood</li>
-									  			<li><input type="checkbox" id='foodandrecipes' name="your-interest[]" value="Food and recipes"> Food and recipes</li>
-									  			<li><input type="checkbox" id='health' name="your-interest[]" value="Health"> Health</li>
-									  			<li><input type="checkbox" id='education' name="your-interest[]" value="Education"> Education</li>
-									  			<li><input type="checkbox" id='parenting' name="your-interest[]" value="Parenting"> Parenting</li>
-									  			<li><input type="checkbox" id='familyfinance' name="your-interest[]" value="Family finance"> Family finance</li>
-									  			<li><input type="checkbox" id='activitiesforfamily' name="your-interest[]" value="Activities for family"> Activities for family</li>
-									  			<li><input type="checkbox" id='vacation' name="your-interest[]" value="Vacation"> Vacation</li>
-									  			<li><input type="checkbox" id='pickyeating' name="your-interest[]" value="Picky eating"> Picky eating</li>
-									  			<li><input type="checkbox" id='discipline' name="your-interest[]" value="Discpline"> Discpline</li>
-									  			<li><input type="checkbox" id='in-laws' name="your-interest[]" value="In-laws"> In-laws</li>
-									  			<li><input type="checkbox" id='beauty' name="your-interest[]" value="Beauty"> Beauty</li>
-									  			<li><input type="checkbox" id='marriage' name="your-interest[]" value="Marriage"> Marriage</li>
+									  			<li><input type="checkbox" id='pregnancy' name="your-interest[]" value="Pregnancy" <?php if (strpos($interest,"Pregnancy")>1){echo "checked";} ?> > Pregnancy</li>
+									  			<li><input type="checkbox" id='infancy' name="your-interest[]" value="Infancy" <?php if (strpos($interest,"Infancy")>1){echo "checked";} ?> > Infancy</li>
+									  			<li><input type="checkbox" id='toddlerhood' name="your-interest[]" value="Toddlerhood" <?php if (strpos($interest,"Toddlerhood")>1){echo "checked";} ?> > Toddlerhood</li>
+									  			<li><input type="checkbox" id='childhood' name="your-interest[]" value="Childhood" <?php if (strpos($interest,"Childhood")>1){echo "checked";} ?> > Childhood</li>
+									  			<li><input type="checkbox" id='foodandrecipes' name="your-interest[]" value="Food and recipes" <?php if (strpos($interest,"Food and recipes")>1){echo "checked";} ?> > Food and recipes</li>
+									  			<li><input type="checkbox" id='health' name="your-interest[]" value="Health" <?php if (strpos($interest,"Health")>1){echo "checked";} ?> > Health</li>
+									  			<li><input type="checkbox" id='education' name="your-interest[]" value="Education" <?php if (strpos($interest,"Education")>1){echo "checked";} ?> > Education</li>
+									  			<li><input type="checkbox" id='parenting' name="your-interest[]" value="Parenting" <?php if (strpos($interest,"Parenting")>1){echo "checked";} ?> > Parenting</li>
+									  			<li><input type="checkbox" id='familyfinance' name="your-interest[]" value="Family finance" <?php if (strpos($interest,"Family finance")>1){echo "checked";} ?> > Family finance</li>
+									  			<li><input type="checkbox" id='activitiesforfamily' name="your-interest[]" value="Activities for family" <?php if (strpos($interest,"Activities for family")>1){echo "checked";} ?> > Activities for family</li>
+									  			<li><input type="checkbox" id='vacation' name="your-interest[]" value="Vacation" <?php if (strpos($interest,"Vacation")>1){echo "checked";} ?> > Vacation</li>
+									  			<li><input type="checkbox" id='pickyeating' name="your-interest[]" value="Picky eating" <?php if (strpos($interest,"Picky eating")>1){echo "checked";} ?> > Picky eating</li>
+									  			<li><input type="checkbox" id='discipline' name="your-interest[]" value="Discipline" <?php if (strpos($interest,"Discipline")>1){echo "checked";} ?> > Discpline</li>
+									  			<li><input type="checkbox" id='in-laws' name="your-interest[]" value="In-laws" <?php if (strpos($interest,"In-laws")>1){echo "checked";} ?> > In-laws</li>
+									  			<li><input type="checkbox" id='beauty' name="your-interest[]" value="Beauty" <?php if (strpos($interest,"Beauty")>1){echo "checked";} ?> > Beauty</li>
+									  			<li><input type="checkbox" id='marriage' name="your-interest[]" value="Marriage" <?php if (strpos($interest,"Marriage")>1){echo "checked";} ?> > Marriage</li>
 									  		</ul>
-									  		<p><button type="button" class="btn btn-default">Save</button></p>
+									  		<p><button type="button" class="btn btn-default" onclick="submitProfile();">Save</button></p>
 									  	</form>
 									  </div>
 									  <div id="child"></div>
 									  <div class="tab-pane" id="children-tab">
-									  	<form>
-										  	<h2>Child 1:</h2>
+									  	<?php //echo "<pre>";print_r($childrenvalue);
+										$y=0;		
+										$dob_day="";
+										$dob_yr="";
+										for ($x=0;$x<$childrencount;$x++){		
+											$cyear=date('Y',strtotime($childrenvalue[0]['child_dob']));
+											$cmonth=date('m',strtotime($childrenvalue[0]['child_dob']));
+											$cday=date('d',strtotime($childrenvalue[0]['child_dob']));										
+											$y++;
+										?>
+										<form method="post" enctype="multipart/form-data" name="fileupload_<?php echo $y; ?>" id="fileupload_<?php echo $y; ?>">
+											
+										  	<h2>Child <?php echo $y; ?>:</h2>
 										  	<p class="row">
-										  		<span class="col-xs-3">
-													<img class="media-object" src="/resources/images/squre-thumbnail.jpg" alt="...">
-													Image of your child
+										  		<span class="col-xs-3" id="child_pic_<?php echo $y; ?>">
+													<?php
+													if ($childrenvalue[$x]['child_pictures']==""){
+													?>
+													<img class="media-object" src="/resources/images/squre-thumbnail.jpg" alt="..." style="width:102px">
+													<?php }else{ ?>
+													<img class="media-object" src="<?php echo $childrenvalue[$x]['child_pictures']; ?>" alt="<?php echo $childrenvalue[$x]['child_fname'].' '.$childrenvalue[$x]['child_lname'];?>" style="width:102px">
+													<?php } ?>
+													
 										  		</span>
 										  		<span class="col-xs-9">
-													<input type="file" name="uploaded-images">
-													Image not bigger than 100 by 100 and 2MB in size.
+													<input type="file" name="uploaded_images_<?php echo $y; ?>" id="uploaded_images_<?php echo $y; ?>">
+													Image not bigger than 100 by 100 and 2MB in size.<br><input type="button"  id="uploadbutton_<?php echo $y; ?>" name="uploadbutton_<?php echo $y; ?>" value="Upload Picture" onclick="uploadChildPicture('<?php echo $y; ?>');">											
 										  		</span>
 										  	</p>
+										</form>
+										<form method="post" enctype="multipart/form-data" name="update_child_data_<?php echo $y; ?>" id="update_child_data_<?php echo $y; ?>">
+											<input type="hidden" id="child_picture_<?php echo $y; ?>" name="child_picture_<?php echo $y; ?>" value="<?php echo $childrenvalue[$x]['child_pictures'];?>">
+											<input type="hidden" id="objectId" name="objectId" value="<?php echo $childrenvalue[$x]['objectId'];?>">
 										  	<p class="row">
-										  		<span class="col-xs-6"><label for="child-first-name">First Name:</label><input type="text" name="child-first-name" id="child-first-name" class="form-control"></span>
-										  		<span class="col-xs-6"><label for="child-last-name">Last Name:</label><input type="text" name="child-last-name" id="child-last-name" class="form-control"></span>
+										  		<span class="col-xs-6"><label for="child-first-name">First Name:</label><input type="text" name="child-first-name" id="child-first-name" class="form-control" value="<?php echo $childrenvalue[$x]['child_fname'];?>"></span>
+										  		<span class="col-xs-6"><label for="child-last-name">Last Name:</label><input type="text" name="child-last-name" id="child-last-name" class="form-control" value="<?php echo $childrenvalue[$x]['child_lname'];?>"></span>
 										  	</p>
 										  	<p>
 											  			<label>Date of birth:<span>*</span></label>
 									                    <select name="child_bmon" id="child_bmon" tabindex="11">
-									                        <option value="">Month</option>
-									                        <option value="1">Jan</option>
-									                        <option value="2">Feb</option>
-									                        <option value="3">Mar</option>
-									                        <option value="4">Apr</option>
-									                        <option value="5">May</option>
-									                        <option value="6">Jun</option>
-									                        <option value="7">Jul</option>
-									                        <option value="8">Aug</option>
-									                        <option value="9">Sep</option>
-									                        <option value="10">Oct</option>
-									                        <option value="11">Nov</option>
-									                        <option value="12">Dec</option>
+									                       <option value="">Month</option>
+									                        <option value="01" <?php if ($cmonth=="01"){ echo "selected"; } ?> >Jan</option>
+									                        <option value="02" <?php if ($cmonth=="02"){ echo "selected"; } ?>>Feb</option>
+									                        <option value="03" <?php if ($cmonth=="03"){ echo "selected"; } ?>>Mar</option>
+									                        <option value="04" <?php if ($cmonth=="04"){ echo "selected"; } ?>>Apr</option>
+									                        <option value="05" <?php if ($cmonth=="05"){ echo "selected"; } ?>>May</option>
+									                        <option value="06" <?php if ($cmonth=="06"){ echo "selected"; } ?>>Jun</option>
+									                        <option value="07" <?php if ($cmonth=="07"){ echo "selected"; } ?>>Jul</option>
+									                        <option value="08" <?php if ($cmonth=="08"){ echo "selected"; } ?>>Aug</option>
+									                        <option value="09" <?php if ($cmonth=="09"){ echo "selected"; } ?>>Sep</option>
+									                        <option value="10" <?php if ($cmonth=="10"){ echo "selected"; } ?>>Oct</option>
+									                        <option value="11" <?php if ($cmonth=="11"){ echo "selected"; } ?>>Nov</option>
+									                        <option value="12" <?php if ($cmonth=="12"){ echo "selected"; } ?>>Dec</option>
 									                    </select>
-									                    <select class="first bday" name="bday" id="bday" tabindex="12">
-									                        <option value="">Day</option>									                        
+									                    <select class="cbay" name="child_bday" id="bday" tabindex="12">
+									                        <option value="">Day</option>				
+															<?php
+															for ($day_value=1;$day_value<=31;$day_value++) {
+																if ($day_value==$cday){
+																	$selected='selected';
+																}
+																echo	$dob_day.= '<option value="'.$day_value.'" '.$selected.' >'.$day_value.'</option>';
+															}
+															?>															
 									                    </select>
-									                    <select name="byear" id="byear" class="byear" tabindex="13">
-									                        <option value="">Year</option>									                        
+									                    <select name="child_byear" id="byear" class="cyear" tabindex="13">
+									                        <option value="">Year</option>	
+																<?php
+																for ($yr_value = 1920; $yr_value <= date("Y"); $yr_value++) {
+																	if ($yr_value==$cyear){				
+																		$dob_yr.= '<option value="'.$yr_value.'" selected >'.$yr_value.'</option>';
+																	}else{
+																		$dob_yr.= '<option value="'.$yr_value.'" >'.$yr_value.'</option>';
+																	}
+																	echo $dob_yr; 
+																}
+																?>															
 									                    </select>
 										  	</p>
-										  	<p><label for="child-interest">Interests: ( seperate by commas) </label><input type="text" name="child-interest" class="form-control"></p>
-										  	<p><label for="child-fav-activities">Favourite activities: ( seperate by commas) </label><input type="text" name="child-fav-activities" class="form-control"></p>
-										  	<p><label for="child-fav-books">Favourite books: ( seperate by commas) </label><input type="text" name="child-fav-books" class="form-control"></p>
-										  	<p><button type="button" class="btn btn-default">Save</button></p>
+										  	<p><label for="child-interest">Interests: ( seperate by commas) </label><input type="text" name="child-interest" class="form-control" value="<?php echo $childrenvalue[$x]['child_interest'];?>"></p>
+										  	<p><label for="child-fav-activities">Favourite activities: ( seperate by commas) </label><input type="text" name="child-fav-activities" class="form-control" value="<?php echo $childrenvalue[$x]['child_favorite_activities'];?>"></p>
+										  	<p><label for="child-fav-books">Favourite books: ( seperate by commas) </label><input type="text" name="child-fav-books" class="form-control" value="<?php echo $childrenvalue[$x]['child_favorite_books'];?>" ></p>
+										  	<p><button type="button" class="btn btn-default" id="uploadbutton_<?php echo $y; ?>" name="uploadbutton_<?php echo $y; ?>" value="<?php echo $y; ?>" onclick="updateChildInfo('<?php echo $y; ?>');">Save</button>											
 									  	</form>
+										<?php }?>
 									  </div>
 									</div>
 								</div>

@@ -57,7 +57,7 @@
 		</div>
 		<?php			
 		//echo $_SERVER['REQUEST_URI'];
-		if ($_SERVER['REQUEST_URI']!="/index.php/user/signup" && $_SERVER['REQUEST_URI']!="/index.php/user/login"){
+		if ($_SERVER['REQUEST_URI']!="/user/signup" && $_SERVER['REQUEST_URI']!="/user/login"){
 		?>
 		
 		<!-- Login Dialog --> 
@@ -88,7 +88,7 @@
 						<p><label class="hidden">Enter your Password</label><input id="passwd" name="user_pw" type="password" class="form-control" placeholder="Enter your Password"></p>
 						<p><button type="button" class="btn btn-default"  onclick="tm_login();" id="btn-signin-form">Login</button></p>
 						<div class="modal-footer">
-							<p><strong>New here? <a href="/<?php echo add_url; ?>/user/signup" class="toggleDialog" id="toggleSignup">Sign Up here</a></strong></p>
+							<p><strong>New here? <a href="/user/signup" class="toggleDialog" id="toggleSignup">Sign Up here</a></strong></p>
 						</div>			
 					</form>
 					<form name="addSession" id="addSession" action="javascript;;" method="post" accept-charset="utf-8" style="display:none;">
@@ -129,7 +129,7 @@
 		<script src="<?php echo base_url(); ?>resources/js/auth.js"></script>
 		<script src="<?php echo base_url(); ?>resources/js/validation.js"></script>
 		<!-- preloader gif -->
-		<div id="preload-div" class="preload"></div>
+		<div id="preload-div" class="preload" style="display:none">  <strong style="color:red"></span></div>
 				
 	</body>
 </html>

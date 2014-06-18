@@ -23,17 +23,20 @@ class parseQuery extends parseRestClient{
 
 	}
 
-	public function find(){
+	public function find(){	
+	
 		if(empty($this->_query)){
 			$request = $this->request(array(
 				'method' => 'GET',
-				'requestUrl' => $this->_requestUrl
+				'requestUrl' => $this->_requestUrl,
+				'action'=>'search'
 			));
 
 			return $request;
 
 		}
-		else{
+		else{		
+		
 			$urlParams = array(
 				'where' => json_encode( $this->_query )
 			);
@@ -57,6 +60,7 @@ class parseQuery extends parseRestClient{
 				'method' => 'GET',
 				'requestUrl' => $this->_requestUrl,
 				'urlParams' => $urlParams,
+				'action'=>'search'
 			));
 
 			return $request;

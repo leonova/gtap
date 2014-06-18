@@ -1,6 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once APPPATH . 'libraries/parse/parse.php';
 require_once APPPATH . 'libraries/parse/parseQuery.php';
+require_once APPPATH . 'libraries/parse/parseUser.php';
 class User extends CI_Controller {
 	
 	public function __construct() {
@@ -81,7 +82,13 @@ class User extends CI_Controller {
 	
 	// profile
 	public function profile() {		
-		$id=$this->session->userdata('objectId');		
+		
+		$id=$this->session->userdata('objectId');
+		
+		// set session for latest data
+		$profile=$this->searchData('objectId', $this->session->userdata('objectId'),'main');
+		$this->session->set_userdata($profile[0]);		
+		
 		$email=$this->session->userdata('email');				
 		$name=$this->session->userdata('user_fullname');
 		$image=$this->session->userdata('user_profile_picture');
@@ -95,7 +102,9 @@ class User extends CI_Controller {
 		$mstatus=$this->session->userdata('user_mstatus');
 		$occupation=$this->session->userdata('user_occupation');		
 		$phone=$this->session->userdata('user_phone');	
-
+		$keep_myinfo_private=$this->session->userdata('keep_myinfo_private');	
+		$keep_childreninfo_private=$this->session->userdata('keep_childreninfo_private');	
+		
 		if (!empty($bdate)	){
 			$birthdate=explode('-',$bdate);
 			$year=$birthdate[0];
@@ -107,9 +116,8 @@ class User extends CI_Controller {
 			$day='';
 		}		
 		$bday=$this->optionsBday($day);
-		$byearmain=$this->optionsByear($year);
-		//$row=$this->user_profile($id,'user_setting');	
-		//$children=$this->profile_children($id);
+		$byearmain=$this->optionsByear($year);		
+		$children=$this->profile_children($id);		
 		
 		$data = array(
 			'user_info'			=> $this->session->userdata,
@@ -129,7 +137,11 @@ class User extends CI_Controller {
 			'occupation'		=>$occupation,	
 			'phone'				=>$phone,
 			'bday'				=>$bday,
-			'byearmain'			=>$byearmain
+			'byearmain'			=>$byearmain,
+			'keep_myinfo_private'=>$keep_myinfo_private,
+			'keep_childreninfo_private'=>$keep_childreninfo_private,
+			'childrencount'		=>count($children),
+			'childrenvalue'		=>$children
 		);				       
 		
 		
@@ -139,13 +151,14 @@ class User extends CI_Controller {
 	}
 	
 	public function profile_children($id){	
-		return $children=$this->user_model->user_children($id);	
+		$parseUser = new parseUser;	
+		return $children=$this->searchData('user_id', $this->session->userdata('objectId'),'Child');		
 		
 	}
-	
+		
 	public function user_profile($id, $class) {				
 		$parseUser = $this->parseUser;
-		$this->testUser = array(
+		$this->dataUser = array(
 			'objectId' => $id				
 		);
 		
@@ -155,32 +168,11 @@ class User extends CI_Controller {
 	
 	public function queryUsersInd($class){
 		$parseUser = $this->parseUser;
-		$parseUser->objectId = $this->testUser['objectId'];		
+		$parseUser->objectId = $this->dataUser['objectId'];		
 		$userQuery = new parseQuery($class);		
 		$userQuery->where('objectId',$parseUser->objectId);
 		$return = $userQuery->find();
-						
-		echo "<pre>";
-		print_r($return);
-
-	}
-	
-	// profile_update
-	public function profile_update() {		
-      
-		$data['data'] = array(
-			'pagename'			=> 'profile_update',
-			'baseUrl'			=> $this->config->base_url(),
-			'title'   			=> 'test',
-			'meta'				=> array(
-                'title' => '',
-				'key_words' => '',
-				'description' => ''
-			)
-		);
-        
-		$this->load->view('user', $data);
-	}
+	}		
 			
 	//fblogin
 	public function fblogin() {			
@@ -202,7 +194,7 @@ class User extends CI_Controller {
 			$profile_picture=strip_tags(trim($image));			
 						
 			$this->parseUser = new parseUser;
-			$this->testUser = array(
+			$this->dataUser = array(
 				'user_fullname' => $fullname,			
 				'username' => $email,
 				'password' => '',
@@ -222,7 +214,7 @@ class User extends CI_Controller {
 				'user_newsletter' => ''
 			);					
 			
-			$this->session->set_userdata($this->testUser);
+			$this->session->set_userdata($this->dataUser);
 			
 			$result=$this->signupWithDataObjectIdOther();	
 			$res=json_decode($result, TRUE);		
@@ -232,7 +224,7 @@ class User extends CI_Controller {
 			}else{
 				$return=$this->getObjectId($email, '');
 			}
-			
+			$user_settings=$this->setUpSettings($return);
 			$this->session->set_userdata('objectId',$return);
 			return $return;
 		}
@@ -274,7 +266,7 @@ class User extends CI_Controller {
 			}
 			
 			$this->parseUser = new parseUser;
-			$this->testUser = array(
+			$this->dataUser = array(
 				'user_fullname' => $fullname,			
 				'username' => $email,
 				'password' => $password,
@@ -294,30 +286,30 @@ class User extends CI_Controller {
 				'user_newsletter' => $newsletter
 			);
 			
-			$result=$this->signupWithDataObjectId();		
+			$result=$this->signupWithDataObjectId();	
 			return $result;
 		}
 	}
 
 	public function signupWithDataObjectIdOther(){
 		$parseUser = $this->parseUser;
-		$parseUser->user_fullname = $this->testUser['user_fullname'];		
-		$parseUser->username = $this->testUser['username'];
-		$parseUser->password = $this->testUser['password'];
-		$parseUser->email = $this->testUser['email'];
-		$parseUser->user_gender = $this->testUser['user_gender'];
-		$parseUser->user_mstatus = $this->testUser['user_mstatus'];
-		$parseUser->user_origin = $this->testUser['user_origin'];		
-		$parseUser->user_profile_picture = $this->testUser['user_profile_picture'];
-		$parseUser->user_birthdate = $this->testUser['user_birthdate'];
-		$parseUser->user_phone = $this->testUser['user_phone'];
-		$parseUser->user_address = $this->testUser['user_address'];
-		$parseUser->user_occupation = $this->testUser['user_occupation'];
-		$parseUser->user_income_range = $this->testUser['user_income_range'];
-		$parseUser->user_mhstatus = $this->testUser['user_mhstatus'];
-		$parseUser->user_mhnum = $this->testUser['user_mhnum'];
-		$parseUser->user_interest = $this->testUser['user_interest'];
-		$parseUser->user_newsletter = $this->testUser['user_newsletter'];		
+		$parseUser->user_fullname = $this->dataUser['user_fullname'];		
+		$parseUser->username = $this->dataUser['username'];
+		$parseUser->password = $this->dataUser['password'];
+		$parseUser->email = $this->dataUser['email'];
+		$parseUser->user_gender = $this->dataUser['user_gender'];
+		$parseUser->user_mstatus = $this->dataUser['user_mstatus'];
+		$parseUser->user_origin = $this->dataUser['user_origin'];		
+		$parseUser->user_profile_picture = $this->dataUser['user_profile_picture'];
+		$parseUser->user_birthdate = $this->dataUser['user_birthdate'];
+		$parseUser->user_phone = $this->dataUser['user_phone'];
+		$parseUser->user_address = $this->dataUser['user_address'];
+		$parseUser->user_occupation = $this->dataUser['user_occupation'];
+		$parseUser->user_income_range = $this->dataUser['user_income_range'];
+		$parseUser->user_mhstatus = $this->dataUser['user_mhstatus'];
+		$parseUser->user_mhnum = $this->dataUser['user_mhnum'];
+		$parseUser->user_interest = $this->dataUser['user_interest'];
+		$parseUser->user_newsletter = $this->dataUser['user_newsletter'];		
 
 		$result= $parseUser->signup();
 				
@@ -327,51 +319,75 @@ class User extends CI_Controller {
 	
 	public function signupWithDataObjectId(){
 		$parseUser = $this->parseUser;
-		$parseUser->user_fullname = $this->testUser['user_fullname'];		
-		$parseUser->username = $this->testUser['username'];
-		$parseUser->password = $this->testUser['password'];
-		$parseUser->email = $this->testUser['email'];
-		$parseUser->user_gender = $this->testUser['user_gender'];
-		$parseUser->user_mstatus = $this->testUser['user_mstatus'];
-		$parseUser->user_origin = $this->testUser['user_origin'];		
-		$parseUser->user_profile_picture = $this->testUser['user_profile_picture'];
-		$parseUser->user_birthdate = $this->testUser['user_birthdate'];
-		$parseUser->user_phone = $this->testUser['user_phone'];
-		$parseUser->user_address = $this->testUser['user_address'];
-		$parseUser->user_occupation = $this->testUser['user_occupation'];
-		$parseUser->user_income_range = $this->testUser['user_income_range'];
-		$parseUser->user_mhstatus = $this->testUser['user_mhstatus'];
-		$parseUser->user_mhnum = $this->testUser['user_mhnum'];
-		$parseUser->user_interest = $this->testUser['user_interest'];
-		$parseUser->user_newsletter = $this->testUser['user_newsletter'];		
+		$parseUser->user_fullname = $this->dataUser['user_fullname'];		
+		$parseUser->username = $this->dataUser['username'];
+		$parseUser->password = $this->dataUser['password'];
+		$parseUser->email = $this->dataUser['email'];
+		$parseUser->user_gender = $this->dataUser['user_gender'];
+		$parseUser->user_mstatus = $this->dataUser['user_mstatus'];
+		$parseUser->user_origin = $this->dataUser['user_origin'];		
+		$parseUser->user_profile_picture = $this->dataUser['user_profile_picture'];
+		$parseUser->user_birthdate = $this->dataUser['user_birthdate'];
+		$parseUser->user_phone = $this->dataUser['user_phone'];
+		$parseUser->user_address = $this->dataUser['user_address'];
+		$parseUser->user_occupation = $this->dataUser['user_occupation'];
+		$parseUser->user_income_range = $this->dataUser['user_income_range'];
+		$parseUser->user_mhstatus = $this->dataUser['user_mhstatus'];
+		$parseUser->user_mhnum = $this->dataUser['user_mhnum'];
+		$parseUser->user_interest = $this->dataUser['user_interest'];
+		$parseUser->user_newsletter = $this->dataUser['user_newsletter'];		
 
 		$result= $parseUser->signup();
 		
-		$res=json_decode($result, TRUE);		
 		
+		$res=json_decode($result, TRUE);		
+				
 		if (!empty($res['objectId'])){
+			$user_settings=$this->setUpSettings($res['objectId']);
 			$return="Success";
 		}else{
 			$return="Failed";
-		}		
+		}				
 		
 		echo $return;				
 	}
 	
-	
-	
-	public function email_checking(){
-		$email=$this->uri->segment(3);
-		$checking=$this->emailchecking($email);
+	public function setUpSettings($objectId){
+		$this->parseUser = new parseUser;
+		$this->dataUser = array(
+			'user_id' => $objectId,
+			'keep_myinfo_private' => '0',
+			'keep_childreninfo_private' => '0'			
+		);
 		
-		$data = array(
-			'result' => $checking
-		);	
-			
-		$this->load->view('user', $data);
+		$result=$this->setUpSettingsWithData();	
+
+		return $result;
 	}
 	
-	
+	public function setUpSettingsWithData(){
+		$parseUser = $this->parseUser;
+		$parseUser->user_id = $this->dataUser['user_id'];
+		$parseUser->keep_myinfo_private = $this->dataUser['keep_myinfo_private'];
+		$parseUser->keep_childreninfo_private = $this->dataUser['keep_childreninfo_private'];		
+
+		$return = $parseUser->setUpSettings();
+
+		return $return;
+		
+	}
+		
+	public function email_checking(){
+		$email=$this->uri->segment(3);
+		$this->parseUser = new parseUser;
+		$res=$this->searchData('email', $email,'users');		
+		
+		if (empty($res)){
+			echo "Success";
+		}else{
+			echo "Failed";
+		}
+	}			
 	
 	public function emailchecking($email) {				
 		$row = $this->user_model->emailchecking($email);		
@@ -417,32 +433,185 @@ class User extends CI_Controller {
 	}
 	
 	public function update_profile(){
-		$row = $this->user_model->update_profile($_POST);
+		$id=strip_tags(trim($_POST['user-id']));
+		$email=strip_tags(trim($_POST['email']));
+		$fullname=strip_tags(trim($_POST['fullname']));		
+		$gender=strip_tags(trim($_POST['gender']));				
+		$birthdate=strip_tags(trim($_POST['byear'])).'-'.strip_tags(trim($_POST['bmonth'])).'-'.strip_tags(trim($_POST['bday']));
+		$profile_picture=strip_tags(trim($_POST['profile_picture']));
+		$incomerange=strip_tags(trim($_POST['income-range']));
+		$mstatus=strip_tags(trim($_POST['marital-status']));
+		$mhstatus=strip_tags(trim($_POST['motherhood-status']));
+		$numchild=strip_tags(trim($_POST['num-child']));
+		$phone=strip_tags(trim($_POST['phone-number']));
+		$occupation=strip_tags(trim($_POST['you-are-a']));
+		$interest=$_POST['your-interest'];
+		$address=strip_tags(trim($_POST['address']));
 		
-		$data = array(
-                    'json' => json_encode($row)
-                    );
-		$this->load->view('auth', $data);
+		if (!empty($_POST['newsletter'])){
+			$newsletter=strip_tags(trim($_POST['newsletter']));
+		}else{
+			$newsletter='';
+		}
+		
+		$finterest='';
+		$y=0;
+		for ($x=0;$x<count($interest);$x++){
+			$finterest.=$interest[$x];
+			$y++;		
+			if ($y<count($interest)){
+				$finterest.=',';
+			}
+		}	
+		
+		
+			$this->parseUser = new parseUser;
+			$this->dataUser = array(
+				'user_fullname' => $fullname,			
+				'username' => $email,				
+				'email' => $email,
+				'user_gender' => $gender,
+				'user_mstatus' => $mstatus,				
+				'user_profile_picture'=> $profile_picture,
+				'user_birthdate'=> $birthdate,
+				'user_phone' => $phone,
+				'user_address' => $address,			
+				'user_occupation' => $occupation,
+				'user_income_range' => $incomerange,
+				'user_mhstatus' => $mhstatus,
+				'user_mhnum' => $numchild,
+				'user_interest' => $finterest,
+				'user_newsletter' => $newsletter
+			);
+			
+			$set=$this->session->set_userdata($this->dataUser);			
+			
+			$result=$this->updateUser($id);	
+			return $result;
+			
 	}
 	
-	public function emailcheckingJS($email) {				
-		$row = $this->user_model->emailchecking($email);	
-		$data = array(
-                    'json' => json_encode($row)
-                    );
-		$this->load->view('auth', $data);
+	public function updateUser($objectId){			
+		$parseUser = $this->parseUser;
+		$parseUser->user_fullname = $this->dataUser['user_fullname'];					
+		$parseUser->email = $this->dataUser['email'];
+		$parseUser->user_gender = $this->dataUser['user_gender'];
+		$parseUser->user_mstatus = $this->dataUser['user_mstatus'];		
+		$parseUser->user_profile_picture = $this->dataUser['user_profile_picture'];
+		$parseUser->user_birthdate = $this->dataUser['user_birthdate'];
+		$parseUser->user_phone = $this->dataUser['user_phone'];
+		$parseUser->user_address = $this->dataUser['user_address'];
+		$parseUser->user_occupation = $this->dataUser['user_occupation'];
+		$parseUser->user_income_range = $this->dataUser['user_income_range'];
+		$parseUser->user_mhstatus = $this->dataUser['user_mhstatus'];
+		$parseUser->user_mhnum = $this->dataUser['user_mhnum'];
+		$parseUser->user_interest = $this->dataUser['user_interest'];
+		$parseUser->user_newsletter = $this->dataUser['user_newsletter'];		
+
+		$return = $parseUser->update($objectId, 'users', $id=$this->session->userdata('sessionToken'));
+
+		return $return;
+		
 	}
 	
-	public function update_settings() {				
+	public function update_settings(){
 		$id=$this->uri->segment(3);
 		$keep_myinfo=$this->uri->segment(4);
 		$keep_child=$this->uri->segment(5);
+		$this->parseUser = new parseUser;
+		$objectId=$this->searchData('user_id',$id,'UserSettings');		
 		
-		$row = $this->user_model->update_settings($id, $keep_myinfo, $keep_child);
+		$this->parseUser = new parseUser;
+		$this->dataUser = array(
+			'user_id' => $id,
+			'keep_myinfo_private' => $keep_myinfo,
+			'keep_childreninfo_private' => $keep_child			
+		);
 		
-		$data = array(
-                    'json' => json_encode($row)
-                    );
-		$this->load->view('auth', $data);
+		$this->session->set_userdata($this->dataUser);
+					
+		$result=$this->updateSettingsWithData($objectId);		
+		return $result;
+		
+	}
+	
+	
+	public function searchData($field,$data,$class){					
+		$this->dataUser = array(
+			$field => $data				
+		);
+		
+		$result=$this->queryDataInd($field,$class);		
+		return $result;
+	}
+	
+	public function queryDataInd($field,$func){
+		if ($func=="main"){
+			$class="users";
+		}else{
+			$class=$func;
+		}
+		$data= $this->dataUser[$field];		
+		$userQuery = new parseQuery($class);		
+		$userQuery->where($field,$data);
+		$result = $userQuery->find();			
+		$return=json_decode($result, TRUE);
+		if ($func=='Child' || $func=='main'){
+			$res=$return['results'];
+		}else{	
+			$res=$return['results'][0]['objectId'];
+		}
+		return $res;
+	}
+	
+	
+	public function updateSettingsWithData($objectId){	
+		$parseUser = $this->parseUser;
+		$parseUser->user_id = $this->dataUser['user_id'];
+		$parseUser->keep_myinfo_private = $this->dataUser['keep_myinfo_private'];
+		$parseUser->keep_childreninfo_private = $this->dataUser['keep_childreninfo_private'];		
+
+		$return = $parseUser->updateNonUser($objectId, 'UserSettings', $id=$this->session->userdata('sessionToken'));		
+		return $return;
+		
+	}
+	
+	public function updateChildInfo(){
+		$id=$this->uri->segment(3);
+		$objectId=$_POST['objectId'];
+		$birthdate=strip_tags(trim($_POST['child_byear'])).'-'.strip_tags(trim($_POST['child_bmon'])).'-'.strip_tags(trim($_POST['child_bday']));		
+		$this->parseUser = new parseUser;		
+		$this->dataUser = array(
+			'child_fname' => $_POST['child-first-name'],
+			'child_lname' => $_POST['child-last-name'],
+			'child_dob' => $birthdate,			
+			'child_gender' => '',			
+			'child_interest' => $_POST['child-interest'],			
+			'child_pictures' => $_POST['child_picture_'.$id],	
+			'child_favorite_books' => $_POST['child-fav-books'],			
+			'child_favorite_activities' => $_POST['child-fav-activities']						
+		);
+		
+		$this->session->set_userdata($this->dataUser);
+					
+		$result=$this->updateChildInfoWithData($objectId);		
+		return $result;;
+	}
+	
+	public function updateChildInfoWithData($objectId){	
+		$parseUser = $this->parseUser;
+		$parseUser->child_fname = $this->dataUser['child_fname'];
+		$parseUser->child_lname = $this->dataUser['child_lname'];
+		$parseUser->child_dob = $this->dataUser['child_dob'];
+		$parseUser->child_gender = $this->dataUser['child_gender'];		
+		$parseUser->child_interest = $this->dataUser['child_interest'];
+		$parseUser->child_pictures = $this->dataUser['child_pictures'];
+		$parseUser->child_favorite_books = $this->dataUser['child_favorite_books'];
+		$parseUser->child_favorite_activities = $this->dataUser['child_favorite_activities'];
+
+		$return = $parseUser->updateNonUser($objectId, 'Child', $id=$this->session->userdata('sessionToken'));		
+		
+		return $return;
+		
 	}
 }

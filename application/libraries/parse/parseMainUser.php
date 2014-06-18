@@ -2,14 +2,14 @@
 class parseMainUser {
 	
 	public $parseUser;
-	public $testUser;
+	public $dataUser;
 	
 	public function setUp(){
 	
 		$pic=$this->uploadPic();
 		
 		$this->parseUser = new parseUser;
-		$this->testUser = array(
+		$this->dataUser = array(
 			'user_firstname' => 'leo',
 			'user_lastname' => 'villanueva',
 			'username' => 'test23@parse.com',
@@ -36,24 +36,24 @@ class parseMainUser {
 
 	public function signupWithDataObjectId(){
 		$parseUser = $this->parseUser;
-		$parseUser->user_firstname = $this->testUser['user_firstname'];
-		$parseUser->user_lastname = $this->testUser['user_lastname'];
-		$parseUser->username = $this->testUser['username'];
-		$parseUser->password = $this->testUser['password'];
-		$parseUser->email = $this->testUser['email'];
-		$parseUser->user_gender = $this->testUser['user_gender'];
-		$parseUser->user_mstatus = $this->testUser['user_mstatus'];
-		$parseUser->user_phone = $this->testUser['user_origin'];
-		$parseUser->user_profile_picture = $this->testUser['user_profile_picture'];
-		$parseUser->user_birthdate = $this->testUser['user_birthdate'];
-		$parseUser->user_phone = $this->testUser['user_phone'];
-		$parseUser->user_address = $this->testUser['user_address'];
-		$parseUser->user_occupation = $this->testUser['user_occupation'];
-		$parseUser->user_income_range = $this->testUser['user_income_range'];
-		$parseUser->user_mhstatus = $this->testUser['user_mhstatus'];
-		$parseUser->user_mhnum = $this->testUser['user_mhnum'];
-		$parseUser->user_interest = $this->testUser['user_interest'];
-		$parseUser->user_newsletter = $this->testUser['user_newsletter'];		
+		$parseUser->user_firstname = $this->dataUser['user_firstname'];
+		$parseUser->user_lastname = $this->dataUser['user_lastname'];
+		$parseUser->username = $this->dataUser['username'];
+		$parseUser->password = $this->dataUser['password'];
+		$parseUser->email = $this->dataUser['email'];
+		$parseUser->user_gender = $this->dataUser['user_gender'];
+		$parseUser->user_mstatus = $this->dataUser['user_mstatus'];
+		$parseUser->user_phone = $this->dataUser['user_origin'];
+		$parseUser->user_profile_picture = $this->dataUser['user_profile_picture'];
+		$parseUser->user_birthdate = $this->dataUser['user_birthdate'];
+		$parseUser->user_phone = $this->dataUser['user_phone'];
+		$parseUser->user_address = $this->dataUser['user_address'];
+		$parseUser->user_occupation = $this->dataUser['user_occupation'];
+		$parseUser->user_income_range = $this->dataUser['user_income_range'];
+		$parseUser->user_mhstatus = $this->dataUser['user_mhstatus'];
+		$parseUser->user_mhnum = $this->dataUser['user_mhnum'];
+		$parseUser->user_interest = $this->dataUser['user_interest'];
+		$parseUser->user_newsletter = $this->dataUser['user_newsletter'];		
 
 		$return = $parseUser->signup();
 		$_SESSION['userdata']=$parseUser;
@@ -65,7 +65,7 @@ class parseMainUser {
 
 	public function login(){		
 		$parseUser = $this->parseUser;
-		$this->testUser = array(
+		$this->dataUser = array(
 			'username' => 'test1@parse.com',
 			'password' => 'testPass'			
 		);
@@ -76,12 +76,12 @@ class parseMainUser {
 	
 	public function loginWithDataObjectId(){
 		$parseUser = $this->parseUser;		
-		$parseUser->username = $this->testUser['username'];
-		$parseUser->password = $this->testUser['password'];
+		$parseUser->username = $this->dataUser['username'];
+		$parseUser->password = $this->dataUser['password'];
 				
 		$loginUser = new parseUser;
-		$loginUser->username = $this->testUser['username'];
-		$loginUser->password = $this->testUser['password'];
+		$loginUser->username = $this->dataUser['username'];
+		$loginUser->password = $this->dataUser['password'];
 
 		$returnLogin = $loginUser->login();
 				
@@ -102,7 +102,7 @@ class parseMainUser {
 	
 	public function searchUser(){		
 		$parseUser = $this->parseUser;
-		$this->testUser = array(
+		$this->dataUser = array(
 			'objectId' => '6zNrYUFzbi'				
 		);
 		
@@ -112,7 +112,7 @@ class parseMainUser {
 	
 	public function queryUsersInd(){
 		$parseUser = $this->parseUser;
-		$parseUser->objectId = $this->testUser['objectId'];		
+		$parseUser->objectId = $this->dataUser['objectId'];		
 		$userQuery = new parseQuery('users');		
 		$userQuery->where('objectId',$parseUser->objectId);
 		$return = $userQuery->find();
@@ -131,11 +131,11 @@ class parseMainUser {
 	}
 
 	public function deleteWithObjectIdExpectTrue(){
-		$testUser = new parseUser;
-		$testUser->username = $this->testUser['username'];
-		$testUser->password = $this->testUser['password'];
+		$dataUser = new parseUser;
+		$dataUser->username = $this->dataUser['username'];
+		$dataUser->password = $this->dataUser['password'];
 		
-		$user = $testUser->signup();
+		$user = $dataUser->signup();
 		
 		$parseUser = $this->parseUser;
 		$return = $parseUser->delete($user->objectId,$user->sessionToken);
@@ -146,11 +146,11 @@ class parseMainUser {
 	THESE TESTS RETURN ERROR EVERYTIME FROM PARSE BECAUSE OF AN INVALID FACEBOOK ID
 
 	public function linkAccountsWithAddAuthDataExpectTrue(){
-		$testUser = new parseUser;
-		$testUser->username = $this->testUser['username'];
-		$testUser->password = $this->testUser['password'];
+		$dataUser = new parseUser;
+		$dataUser->username = $this->dataUser['username'];
+		$dataUser->password = $this->dataUser['password'];
 		
-		$user = $testUser->signup();
+		$user = $dataUser->signup();
 		
 		$parseUser = new parseUser;
 

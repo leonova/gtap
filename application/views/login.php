@@ -17,12 +17,12 @@
 		      </div>
 		      <div class="modal-body">
 			  <div id='userErrorLog'></div>
-		        <form name="ajaxform" id="ajaxform"  method="POST" action="javascript;;" accept-charset="utf-8" class="signin-form">
+		        <form name="loginForm" id="loginForm"  method="POST" action="javascript;;" accept-charset="utf-8" class="signin-form">
 		        	<p><label class="hidden">Email Address</label><input id="email_add" name="user_email" type="text" class="form-control" placeholder="Email Address"></p>
 		        	<p><label class="hidden">Enter your Password</label><input id="passwd" name="user_pw" type="password" class="form-control" placeholder="Enter your Password"></p>
 		        	<p><button type="button" class="btn btn-default"  onclick="tm_login();" id="btn-signin-form">Login</button></p>
 					<div class="modal-footer">
-						<p><strong>New here? <a href="/<?php echo add_url; ?>/user/signup" class="toggleDialog" id="toggleSignup">Sign Up here</a></strong></p>
+						<p><strong>New here? <a href="/user/signup" class="toggleDialog" id="toggleSignup">Sign Up here</a></strong></p>
 					</div>			
 		        </form>
 				<form name="addSession" id="addSession" action="javascript;;" method="post" accept-charset="utf-8" style="display:none;">

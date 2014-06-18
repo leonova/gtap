@@ -4,14 +4,12 @@ class Home extends CI_Controller {
 	
 	public function __construct() {
 		parent::__construct();
-        
-        $this->load->model('home_model');       
+                       
 		$this->load->library('session');
 	}
 	
 	// homepage
 	public function index() {			
-		//print_r($this->session->userdata);
 		$id=$this->session->userdata('objectId');		
 		$email=$this->session->userdata('email');				
 		$name=$this->session->userdata('user_fullname');
