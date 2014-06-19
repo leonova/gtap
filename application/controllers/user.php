@@ -8,7 +8,7 @@ class User extends CI_Controller {
 		parent::__construct();
         
         $this->load->library('session');			
-		
+		$this->load->model('auth_model');	
 	}
 	
 	// homepage
@@ -82,13 +82,13 @@ class User extends CI_Controller {
 	
 	// profile
 	public function profile() {		
-		
+		$token=$this->auth_model->checkSessionToken();		
 		$id=$this->session->userdata('objectId');
 		
 		// set session for latest data
 		$profile=$this->searchData('objectId', $this->session->userdata('objectId'),'main');
 		$this->session->set_userdata($profile[0]);		
-		
+			
 		$email=$this->session->userdata('email');				
 		$name=$this->session->userdata('user_fullname');
 		$image=$this->session->userdata('user_profile_picture');
@@ -104,7 +104,7 @@ class User extends CI_Controller {
 		$phone=$this->session->userdata('user_phone');	
 		$keep_myinfo_private=$this->session->userdata('keep_myinfo_private');	
 		$keep_childreninfo_private=$this->session->userdata('keep_childreninfo_private');	
-		
+			
 		if (!empty($bdate)	){
 			$birthdate=explode('-',$bdate);
 			$year=$birthdate[0];
@@ -115,48 +115,52 @@ class User extends CI_Controller {
 			$month='';
 			$day='';
 		}		
+		
 		$bday=$this->optionsBday($day);
 		$byearmain=$this->optionsByear($year);		
 		$children=$this->profile_children($id);		
-		
+			
 		$data = array(
-			'user_info'			=> $this->session->userdata,
-			'children'			=> '',	
-			'id'				=>$id,
-			'email'				=>$email,
-			'name'				=>$name,
-			'image'				=>$image,
-			'gender'			=>$gender,
-			'address'			=>$address,
-			'bdate'				=>$bdate,
-			'income_range'		=>$income_range,
-			'interest'			=>$interest,
-			'mhnum'				=>$mhnum,
-			'mhstatus'			=>$mhstatus,
-			'mstatus'			=>$mstatus,
-			'occupation'		=>$occupation,	
-			'phone'				=>$phone,
-			'bday'				=>$bday,
-			'byearmain'			=>$byearmain,
-			'keep_myinfo_private'=>$keep_myinfo_private,
-			'keep_childreninfo_private'=>$keep_childreninfo_private,
-			'childrencount'		=>count($children),
-			'childrenvalue'		=>$children
-		);				       
-		
-		
+				'user_info'			=> $this->session->userdata,
+				'children'			=> '',	
+				'id'				=>$id,
+				'email'				=>$email,
+				'name'				=>$name,
+				'image'				=>$image,
+				'gender'			=>$gender,
+				'address'			=>$address,
+				'bdate'				=>$bdate,
+				'income_range'		=>$income_range,
+				'interest'			=>$interest,
+				'mhnum'				=>$mhnum,
+				'mhstatus'			=>$mhstatus,
+				'mstatus'			=>$mstatus,
+				'occupation'		=>$occupation,	
+				'phone'				=>$phone,
+				'bday'				=>$bday,
+				'byearmain'			=>$byearmain,
+				'keep_myinfo_private'=>$keep_myinfo_private,
+				'keep_childreninfo_private'=>$keep_childreninfo_private,
+				'childrencount'		=>count($children),
+				'childrenvalue'		=>$children
+			);				       
+			
+			
 		$this->load->view('template/header', $data);
 		$this->load->view('profile-page-setting', $data);
 		$this->load->view('template/footer', $data);
+		
 	}
 	
 	public function profile_children($id){	
+		$token=$this->auth_model->checkSessionToken();	
 		$parseUser = new parseUser;	
 		return $children=$this->searchData('user_id', $this->session->userdata('objectId'),'Child');		
 		
 	}
 		
-	public function user_profile($id, $class) {				
+	public function user_profile($id, $class) {	
+		$token=$this->auth_model->checkSessionToken();		
 		$parseUser = $this->parseUser;
 		$this->dataUser = array(
 			'objectId' => $id				
@@ -178,7 +182,7 @@ class User extends CI_Controller {
 	public function fblogin() {			
 				
 		if (!empty($_POST)){
-			$user=explode('||',$_POST['userdata']);
+			$user=explode('||',$this->input->post('userdata'));
 			$id=$user[0];
 			$name=$user[1].' '.$user[2];
 			$email=$user[4];
@@ -251,16 +255,16 @@ class User extends CI_Controller {
 	
 	public function setUp(){
 		if (!empty($_POST)){
-			$email=strip_tags(trim($_POST['eadd']));
-			$fullname=strip_tags(trim($_POST['fullname']));		
-			$gender=strip_tags(trim($_POST['gender']));
-			$password=strip_tags(trim($_POST['passwd']));		
-			$birthdate=strip_tags(trim($_POST['byear'])).'-'.strip_tags(trim($_POST['bmonth'])).'-'.strip_tags(trim($_POST['bday']));
-			$origin=strip_tags(trim($_POST['origin']));
-			$account_id=strip_tags(trim($_POST['account_id']));
-			$profile_picture=strip_tags(trim($_POST['profile_picture']));
+			$email=strip_tags(trim($this->input->post('eadd')));
+			$fullname=strip_tags(trim($this->input->post('fullname')));		
+			$gender=strip_tags(trim($this->input->post('gender')));
+			$password=strip_tags(trim($this->input->post('passwd')));		
+			$birthdate=strip_tags(trim($this->input->post('byear'))).'-'.strip_tags(trim($this->input->post('bmonth'))).'-'.strip_tags(trim($this->input->post('bday')));
+			$origin=strip_tags(trim($this->input->post('origin')));
+			$account_id=strip_tags(trim($this->input->post('account_id')));
+			$profile_picture=strip_tags(trim($this->input->post('profile_picture')));
 			if (!empty($_POST['newsletter'])){
-				$newsletter=strip_tags(trim($_POST['newsletter']));
+				$newsletter=strip_tags(trim($this->input->post('newsletter')));
 			}else{
 				$newsletter='';
 			}
@@ -414,42 +418,26 @@ class User extends CI_Controller {
                     );
 		$this->load->view('auth', $data);
 	}
-	
-	public function update_child_info() {	
-		$fname=$this->uri->segment(3);
-		$lname=$this->uri->segment(4);
-		$bdate=$this->uri->segment(5);
-		$interest=$this->uri->segment(6);
-		$fave_act=$this->uri->segment(7);
-		$fave_books=$this->uri->segment(8);		
-		$childid=$this->uri->segment(9);		
 		
-		$row = $this->user_model->update_child_info($fname, $lname, $bdate, $interest, $fave_act, $fave_books, $childid);		
-		
-		$data = array(
-                    'json' => json_encode($row)
-                    );
-		$this->load->view('auth', $data);
-	}
 	
 	public function update_profile(){
-		$id=strip_tags(trim($_POST['user-id']));
-		$email=strip_tags(trim($_POST['email']));
-		$fullname=strip_tags(trim($_POST['fullname']));		
-		$gender=strip_tags(trim($_POST['gender']));				
-		$birthdate=strip_tags(trim($_POST['byear'])).'-'.strip_tags(trim($_POST['bmonth'])).'-'.strip_tags(trim($_POST['bday']));
-		$profile_picture=strip_tags(trim($_POST['profile_picture']));
-		$incomerange=strip_tags(trim($_POST['income-range']));
-		$mstatus=strip_tags(trim($_POST['marital-status']));
-		$mhstatus=strip_tags(trim($_POST['motherhood-status']));
-		$numchild=strip_tags(trim($_POST['num-child']));
-		$phone=strip_tags(trim($_POST['phone-number']));
-		$occupation=strip_tags(trim($_POST['you-are-a']));
-		$interest=$_POST['your-interest'];
-		$address=strip_tags(trim($_POST['address']));
+		$id=strip_tags(trim($this->input->post('user-id')));
+		$email=strip_tags(trim($this->input->post('email')));
+		$fullname=strip_tags(trim($this->input->post('fullname')));		
+		$gender=strip_tags(trim($this->input->post('gender')));				
+		$birthdate=strip_tags(trim($this->input->post('byear'))).'-'.strip_tags(trim($this->input->post('bmonth'))).'-'.strip_tags(trim($this->input->post('bday')));
+		$profile_picture=strip_tags(trim($this->input->post('profile_picture')));
+		$incomerange=strip_tags(trim($this->input->post('income-range')));
+		$mstatus=strip_tags(trim($this->input->post('marital-status')));
+		$mhstatus=strip_tags(trim($this->input->post('motherhood-status')));
+		$numchild=strip_tags(trim($this->input->post('num-child')));
+		$phone=strip_tags(trim($this->input->post('phone-number')));
+		$occupation=strip_tags(trim($this->input->post('you-are-a')));
+		$interest=$this->input->post('your-interest');
+		$address=strip_tags(trim($this->input->post('address')));
 		
 		if (!empty($_POST['newsletter'])){
-			$newsletter=strip_tags(trim($_POST['newsletter']));
+			$newsletter=strip_tags(trim($this->input->post('newsletter')));
 		}else{
 			$newsletter='';
 		}
@@ -515,6 +503,7 @@ class User extends CI_Controller {
 	}
 	
 	public function update_settings(){
+		$token=$this->auth_model->checkSessionToken();	
 		$id=$this->uri->segment(3);
 		$keep_myinfo=$this->uri->segment(4);
 		$keep_child=$this->uri->segment(5);
@@ -566,6 +555,7 @@ class User extends CI_Controller {
 	
 	
 	public function updateSettingsWithData($objectId){	
+		$token=$this->auth_model->checkSessionToken();	
 		$parseUser = $this->parseUser;
 		$parseUser->user_id = $this->dataUser['user_id'];
 		$parseUser->keep_myinfo_private = $this->dataUser['keep_myinfo_private'];
@@ -577,19 +567,20 @@ class User extends CI_Controller {
 	}
 	
 	public function updateChildInfo(){
+		$token=$this->auth_model->checkSessionToken();	
 		$id=$this->uri->segment(3);
 		$objectId=$_POST['objectId'];
-		$birthdate=strip_tags(trim($_POST['child_byear'])).'-'.strip_tags(trim($_POST['child_bmon'])).'-'.strip_tags(trim($_POST['child_bday']));		
+		$birthdate=strip_tags(trim($this->input->post('child_byear'))).'-'.strip_tags(trim($this->input->post('child_bmon'))).'-'.strip_tags(trim($this->input->post('child_bday')));		
 		$this->parseUser = new parseUser;		
 		$this->dataUser = array(
-			'child_fname' => $_POST['child-first-name'],
-			'child_lname' => $_POST['child-last-name'],
+			'child_fname' => $this->input->post('child-first-name'),
+			'child_lname' => $this->input->post('child-last-name'),
 			'child_dob' => $birthdate,			
-			'child_gender' => '',			
-			'child_interest' => $_POST['child-interest'],			
-			'child_pictures' => $_POST['child_picture_'.$id],	
-			'child_favorite_books' => $_POST['child-fav-books'],			
-			'child_favorite_activities' => $_POST['child-fav-activities']						
+			'child_gender' => $this->input->post('child-gender'),			
+			'child_interest' => $this->input->post('child-interest'),			
+			'child_pictures' => $this->input->post('child_picture_'.$id),	
+			'child_favorite_books' => $this->input->post('child-fav-books'),			
+			'child_favorite_activities' => $this->input->post('child-fav-activities')						
 		);
 		
 		$this->session->set_userdata($this->dataUser);
@@ -599,6 +590,7 @@ class User extends CI_Controller {
 	}
 	
 	public function updateChildInfoWithData($objectId){	
+		$token=$this->auth_model->checkSessionToken();	
 		$parseUser = $this->parseUser;
 		$parseUser->child_fname = $this->dataUser['child_fname'];
 		$parseUser->child_lname = $this->dataUser['child_lname'];
