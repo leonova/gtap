@@ -14,9 +14,12 @@
 													<img src="<?php echo $image; ?>" style="width:102px" />
 											<?php }else{?>
 												<img src="/resources/images/gtap.jpg" style="width:102px" />
-											<?php }?>	
+											<?php }?>
+											<a id="editphoto">
+												<span>Edit Photo</span>
+											</a>
 										</div>
-										<form id="fileupload" name="fileupload" enctype="multipart/form-data" method="post">
+										<form id="fileupload" name="fileupload" enctype="multipart/form-data" method="post" style="padding-top:10px; display:none;">
 										  <fieldset>
 											<input type="file" name="imageInput" id="imageInput"></input>
 											<input id="uploadbutton" type="button" value="Upload Photo"/>
@@ -159,6 +162,7 @@
 									  </div>
 									  <div id="child"></div>
 									  <div class="tab-pane" id="children-tab">
+									  <div class="childcontent">
 									  	<?php //echo "<pre>";print_r($childrenvalue);
 										$y=0;		
 										$dob_day="";
@@ -252,13 +256,13 @@
 										  	<p><label for="child-fav-books">Favourite books: ( seperate by commas) </label><input type="text" name="child-fav-books" class="form-control" value="<?php echo $childrenvalue[$x]['child_favorite_books'];?>" ></p>
 										  	<p><button type="button" class="btn btn-default" id="uploadbutton_<?php echo $y; ?>" name="uploadbutton_<?php echo $y; ?>" value="<?php echo $y; ?>" onclick="updateChildInfo('<?php echo $y; ?>');">Save</button>											
 									  	</form>
+										</div>
 										<?php }?>
 										
-									  </div>
-									</div>
 									<div id="addchild"></div>
 									
 									<p><button type="button" class="btn btn-default" id="AddChild-btn">Add Child</button></p>
+									</div>
 								</div>
 							</div>
 						</section>
