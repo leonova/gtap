@@ -278,92 +278,70 @@ for (var yr_value = 1920; yr_value <= curryear; yr_value++) {
 $(".bday").append(dob_day);
 $(".byear").append(dob_yr);
 
-//Show Edit Photo buttons
-$('#editphoto').css('cursor','pointer');
-$('#editphoto').click(function(){
-	if($('#fileupload').css('display')=='none'){
-		$('#fileupload').css('display','block');//change the button label to be 'Show'
-	}else{
-		$('#fileupload').css('display','none');//change the button label to be 'Hide'
-	}
-});
-
-
 //append New Child form
-var childcount = $('.childform').length;
-if(childcount == 0){
-	 var cnum = 0;
-}
-else{
-	var cnum = childcount;
-}
-
+var childnum =  1;
 var childform ="";
 
 $('#AddChild-btn').click(function(){
-	cnum++;
+	childnum++;
 	childform ="";
-	childform = '<div class="childcontent"><form method="post" enctype="multipart/form-data" name="fileupload_'+ cnum +'" id="fileupload_'+ cnum +'">' +	
-										  	'<h2>Child '+ cnum +':</h2>'+
+	childform = '<form class="tabform">'+
+										  	'<h2>Child ' + childnum + ':</h2>'+
 										  	'<p class="row">'+
-										  		'<span class="col-xs-3" id="child_pic_'+ cnum +' ">'+
-													'<img class="media-object" src="/resources/images/squre-thumbnail.jpg" alt="..." id="user-photo" style="width:102px">'+
-										  		'</span>'+
-										  		'<span class="col-xs-9">'+
-													'<input type="file" name="uploaded_images_'+ cnum +'" id="uploaded_images_'+ cnum +'">'+
-													'Image not bigger than 100 by 100 and 2MB in size.<br>'+
-													'<input type="button"  id="uploadbutton_'+ cnum +'" name="uploadbutton_'+ cnum +'" value="Upload Picture" onclick="uploadChildPicture();">'+											
+										 	'<span class="col-xs-3">'+
+										'			<img class="media-object" src="/resources/images/squre-thumbnail.jpg" alt="...">'+
+										'			Image of your child'+
+										  	'	</span>'+
+										  	'	<span class="col-xs-9">'+
+													'<input type="file" name="uploaded-images">'+
+													'Image not bigger than 100 by 100 and 2MB in size.'+
 										  		'</span>'+
 										  	'</p>'+
-										'</form>'+
-										'<form  method="post" enctype="multipart/form-data" name="update_child_data_' + cnum + '" id="update_child_data_'+ cnum +'">'+
-											'<input type="hidden" id="child_picture_'+ cnum +'" name="child_picture_'+ cnum +'" value="">'+
-											'<input type="hidden" id="objectId" name="objectId" value="">'+
 										  	'<p class="row">'+
 										  		'<span class="col-xs-6"><label for="child-first-name">First Name:</label>'+
-													'<input type="text" name="child-first-name" id="child-first-name" class="form-control" value="">'+
-												'</span>'+
+										  			'<input type="text" name="child-first-name" id="child-first-name" class="form-control">'+
+										  		'</span>'+
 										  		'<span class="col-xs-6"><label for="child-last-name">Last Name:</label>'+
-													'<input type="text" name="child-last-name" id="child-last-name" class="form-control" value="">'+
-												'</span>'+
+										  		'	<input type="text" name="child-last-name" id="child-last-name" class="form-control">'+
+										  		'</span>'+
 										  	'</p>'+
 										  	'<p>'+
 											  			'<label>Date of birth:<span>*</span></label>'+
-									                    '<select name="child_bmon" id="child_bmon" tabindex="11">'+
-									                      ' <option value="">Month</option>'+
-									                        '<option value="01">Jan</option>'+
-									                       ' <option value="02">Feb</option>'+
-									                        '<option value="03" >Mar</option>'+
-									                        '<option value="04" >Apr</option>'+
-									                       ' <option value="05">May</option>'+
-									                       ' <option value="06" >Jun</option>'+
-									                      '  <option value="07" >Jul</option>'+
-									                     '   <option value="08" >Aug</option>'+
-									                       ' <option value="09" >Sep</option>'+
-									                      '  <option value="10" >Oct</option>'+
-									                       ' <option value="11" >Nov</option>'+
-									                       ' <option value="12" >Dec</option>'+
+									                   ' <select name="child_bmon" id="child_bmon" tabindex="11">'+
+									                     '   <option value="">Month</option>'+
+									                      '  <option value="1">Jan</option>'+
+									                     '  <option value="2">Feb</option>'+
+									                      '  <option value="3">Mar</option>'+
+									                       ' <option value="4">Apr</option>'+
+									                       ' <option value="5">May</option>'+
+									                     '   <option value="6">Jun</option>'+
+									                     '   <option value="7">Jul</option>'+
+									                      '  <option value="8">Aug</option>'+
+									                      '  <option value="9">Sep</option>'+
+									                      '  <option value="10">Oct</option>'+
+									                      '  <option value="11">Nov</option>'+
+									                      '  <option value="12">Dec</option>'+
 									                   ' </select>'+
-									                  '  <select class="cbay" name="child_bday" id="bday" tabindex="12">'+
-									                   '     <option value="">Day</option>		'+																	
-									                    '</select>'+
-									                    '<select name="child_byear" id="byear" class="cyear" tabindex="13">'+
-									                       ' <option value="">Year</option>	'+														
-									                   ' </select>'+
+									                  '  <select class="first bday" name="bday" id="bday" tabindex="12">'+
+									                   '     <option value="">Day</option>		'+							                        
+									                  '  </select>'+
+									                 '   <select name="byear" id="byear" class="byear" tabindex="13">'+
+									                 '       <option value="">Year</option>	'+								                        
+									                  '  </select>'+
 										  	'</p>'+
 										  	'<p><label for="child-interest">Interests: ( seperate by commas) </label>'+
-											'	<input type="text" name="child-interest" class="form-control" value="">'+
-											'</p>'+
+										  		'<input type="text" name="child-interest" class="form-control">'+
+										  	'</p>'+
 										  	'<p><label for="child-fav-activities">Favourite activities: ( seperate by commas) </label>'+
-											'	<input type="text" name="child-fav-activities" class="form-control" value="">'+
-											'</p>'+
+										  		'<input type="text" name="child-fav-activities" class="form-control">'+
+										  	'</p>'+
 										  	'<p><label for="child-fav-books">Favourite books: ( seperate by commas) </label>'+
-											'	<input type="text" name="child-fav-books" class="form-control" value="" >'+
-											'</p>'+
-										    '<p>'+
-											'	<button type="button" class="btn btn-default" id="uploadbutton_'+ cnum +'" name="uploadbutton_'+ cnum +'" value="'+ cnum +'" onclick="updateChildInfo"'+ cnum +'");">Save</button>'+
-											'</p></form></div>'
-		$('#addchild').append(childform);			  	
+										  		'<input type="text" name="child-fav-books" class="form-control">'+
+										  	'</p>'+
+										  	'<p><button type="button" class="btn btn-default">Save</button></p>'+'</form>'
+		$('.tabcontent').append(childform);			  	
 });
+
+
 
 
