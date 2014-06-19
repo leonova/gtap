@@ -196,7 +196,15 @@
 										  		<span class="col-xs-6"><label for="child-first-name">First Name:</label><input type="text" name="child-first-name" id="child-first-name" class="form-control" value="<?php echo $childrenvalue[$x]['child_fname'];?>"></span>
 										  		<span class="col-xs-6"><label for="child-last-name">Last Name:</label><input type="text" name="child-last-name" id="child-last-name" class="form-control" value="<?php echo $childrenvalue[$x]['child_lname'];?>"></span>
 										  	</p>
-										  	<p>
+										  	<p class="row">		
+												<span class="col-xs-2">										
+												<label for="gender">Gender:<span>*</span></label>
+										  			<select id="child-gender" name="child-gender">
+													  <option value="male" <?php if ($childrenvalue[$x]['child_gender']=="male"){ echo "selected"; } ?> >Male</option>
+													  <option value="female"  <?php if ($childrenvalue[$x]['child_gender']=="female"){ echo "selected"; } ?> >Female</option>
+													</select>
+												</span>
+												<span class="col-xs-9">
 											  			<label>Date of birth:<span>*</span></label>
 									                    <select name="child_bmon" id="child_bmon" tabindex="11">
 									                       <option value="">Month</option>
@@ -237,6 +245,7 @@
 																}
 																?>															
 									                    </select>
+												</span>	
 										  	</p>
 										  	<p><label for="child-interest">Interests: ( seperate by commas) </label><input type="text" name="child-interest" class="form-control" value="<?php echo $childrenvalue[$x]['child_interest'];?>"></p>
 										  	<p><label for="child-fav-activities">Favourite activities: ( seperate by commas) </label><input type="text" name="child-fav-activities" class="form-control" value="<?php echo $childrenvalue[$x]['child_favorite_activities'];?>"></p>

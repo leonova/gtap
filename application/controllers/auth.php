@@ -14,6 +14,7 @@ class Auth extends CI_Controller {
 		parent::__construct();
         
 		$this->load->library('session');
+		$this->load->model('auth_model');	
 	}
 	
 	//login
@@ -21,8 +22,8 @@ class Auth extends CI_Controller {
 		if (!empty($_POST)){
 			$this->parseUser = new parseUser;
 			$this->dataUser = $this->dataUser = array(
-								'username' => strip_tags(trim($_POST['user_email'])),
-								'password' => strip_tags(trim($_POST['user_pw']))			
+								'username' => strip_tags(trim($this->input->post('user_email'))),
+								'password' => strip_tags(trim($this->input->post('user_pw')))			
 			);		
 			
 			$result=$this->loginWithDataObjectId();		
@@ -42,8 +43,8 @@ class Auth extends CI_Controller {
 		$returnLogin = $loginUser->login();		
 								
 		echo $returnLogin;
-			
-		//
+					
+		// set session for logged in user
 		$res=json_decode($returnLogin, TRUE);		
 		if (empty($res['code'])){			
 			$resultSearch=$this->searchUser($res['objectId'],'UserSettings');
