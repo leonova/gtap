@@ -49,7 +49,11 @@ class Auth extends CI_Controller {
 		if (empty($res['code'])){			
 			$resultSearch=$this->searchUser($res['objectId'],'UserSettings');
 			$rs=json_decode($resultSearch, TRUE);							
-			$this->session->set_userdata($rs['results']['0']);
+			
+			if (!empty($rs['results'])){
+				$this->session->set_userdata($rs['results']['0']);
+			}
+			
 			$this->session->set_userdata($res);
 		}
 			
