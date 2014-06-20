@@ -207,6 +207,32 @@
 		
 	}
 	
+	function addChild(value){		
+		loading('open');
+		var postData = $("#update_child_data_"+value).serializeArray();				
+		var formURL = '/user/addChild/'+value;
+		$.ajax(
+			{
+				url : formURL,
+				type: "POST",
+				data : postData,
+				async: false,
+				success:function(data) 
+			{
+				//data: return data from server		
+				$('#uploadbutton_'+value).css('display','none');	
+				loading('close');					
+			},
+			
+			error: function(jqXHR, textStatus, errorThrown) 
+			{
+				//if fails  
+				alert('error!');    
+			}
+		});
+				 		
+	}
+	
 	function updateChildInfo(value){		
 		loading('open');
 		var postData = $("#update_child_data_"+value).serializeArray();				
@@ -367,8 +393,10 @@
 				}).done(function(data) {										
 					if (data!="Failed"){
 						$('#re-email').prop('disabled', false);
+						$('#generalsave').attr("disabled", false);
 					}else{
 						alert('Email Already Exist');
+						$('#generalsave').attr("disabled", true);
 					}
 				});						
 	}
@@ -399,3 +427,114 @@
 		});
 		 e.preventDefault(); //STOP default action 
 	});
+	
+	
+	//append New Child form
+	var childcount = $('.childform').length;
+	if(childcount == 0){
+		 var cnum1 = 0;
+	}
+	else{
+		var cnum1 = childcount;
+	}
+
+	var childform ="";
+
+	$('#AddChild-btn').click(function(){
+		var bday=optionsBday();
+		var byear=optionsByear();
+		cnum1++;	
+		var childcount= $('#childcount').val();
+		var cnum=parseInt(childcount)+parseInt(cnum1);
+		
+		childform ="";
+		childform = '<div class="childcontent"><form method="post" enctype="multipart/form-data" name="fileupload_'+ cnum +'" id="fileupload_'+ cnum +'">' +	
+												'<h2>Child '+ cnum +':</h2>'+
+												'<p class="row">'+
+													'<span class="col-xs-3" id="child_pic_'+ cnum +'">'+
+														'<img class="media-object" src="/resources/images/squre-thumbnail.jpg" alt="..."  style="width:102px">'+
+													'</span>'+
+													'<span class="col-xs-9">'+
+														'<input type="file" name="uploaded_images_'+ cnum +'" id="uploaded_images_'+ cnum +'">'+
+														'Image not bigger than 100 by 100 and 2MB in size.<br>'+
+														'<input type="button"  id="uploadbutton_'+ cnum +'" name="uploadbutton_'+ cnum +'" value="Upload Picture" onclick="uploadChildPicture('+cnum+');">'+											
+													'</span>'+
+												'</p>'+
+											'</form>'+
+											'<form  method="post" enctype="multipart/form-data" name="update_child_data_' + cnum + '" id="update_child_data_'+ cnum +'">'+
+												'<input type="hidden" id="child_picture_'+ cnum +'" name="child_picture_'+ cnum +'" value="">'+
+												'<input type="hidden" id="objectId" name="objectId" value="">'+
+												'<p class="row">'+
+													'<span class="col-xs-6"><label for="child-first-name">First Name:</label>'+
+														'<input type="text" name="child-first-name" id="child-first-name" class="form-control" value="">'+
+													'</span>'+
+													'<span class="col-xs-6"><label for="child-last-name">Last Name:</label>'+
+														'<input type="text" name="child-last-name" id="child-last-name" class="form-control" value="">'+
+													'</span>'+
+												'</p>'+
+												'<p class="row"><span class="col-xs-2">'+
+															'<label for="gender">Gender:<span>*</span></label>'+
+																'<select id="child-gender" name="child-gender">'+
+																  '<option value="male">Male</option>'+
+																  '<option value="female">Female</option>'+
+																'</select>'+
+															'</span>'+
+															'<span class="col-xs-9">'+												
+															'<label>Date of birth:<span>*</span></label>'+
+															'<select name="child_bmon" id="child_bmon" tabindex="11">'+
+															  ' <option value="">Month</option>'+
+																'<option value="01">Jan</option>'+
+															   ' <option value="02">Feb</option>'+
+																'<option value="03" >Mar</option>'+
+																'<option value="04" >Apr</option>'+
+															   ' <option value="05">May</option>'+
+															   ' <option value="06" >Jun</option>'+
+															  '  <option value="07" >Jul</option>'+
+															 '   <option value="08" >Aug</option>'+
+															   ' <option value="09" >Sep</option>'+
+															  '  <option value="10" >Oct</option>'+
+															   ' <option value="11" >Nov</option>'+
+															   ' <option value="12" >Dec</option>'+
+														   ' </select>'+
+														  '  <select class="cbay" name="child_bday" id="bday" tabindex="12">'+
+														   '     <option value="">Day</option>		'+bday+																	
+															'</select>'+
+															'<select name="child_byear" id="byear" class="cyear" tabindex="13">'+
+															   ' <option value="">Year</option>	'+byear+														
+														   ' </select>'+
+												'</span></p>'+
+												'<p><label for="child-interest">Interests: ( seperate by commas) </label>'+
+												'	<input type="text" name="child-interest" class="form-control" value="">'+
+												'</p>'+
+												'<p><label for="child-fav-activities">Favourite activities: ( seperate by commas) </label>'+
+												'	<input type="text" name="child-fav-activities" class="form-control" value="">'+
+												'</p>'+
+												'<p><label for="child-fav-books">Favourite books: ( seperate by commas) </label>'+
+												'	<input type="text" name="child-fav-books" class="form-control" value="" >'+
+												'</p>'+
+												'<p>'+
+												'	<button type="button" class="btn btn-default" id="uploadbutton_'+ cnum +'" name="uploadbutton_'+ cnum +'" value="'+ cnum +'" onclick="addChild('+ cnum +');">Save</button>'+
+												'</p></form></div>'
+			$('#addchild').append(childform);			  	
+	});
+
+	function optionsBday(){
+		dob_day=""	
+		for (var day_value = 1; day_value <= 31; day_value++) {
+			dob_day += '<option value="' + day_value + '">' + day_value + '</option>'
+		}
+		
+		return dob_day;
+	}
+	
+	function optionsByear(){
+		dob_yr="";
+		for (var yr_value = 1920; yr_value <= curryear; yr_value++) {
+			dob_yr += '<option value="' + yr_value + '">' + yr_value + '</option>'
+		}
+		
+		return dob_yr;
+	}
+	
+
+	

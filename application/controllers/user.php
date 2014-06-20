@@ -82,13 +82,10 @@ class User extends CI_Controller {
 	
 	// profile
 	public function profile() {		
-		$token=$this->auth_model->checkSessionToken();		
-		$id=$this->session->userdata('objectId');
-		
-		// set session for latest data
-		$profile=$this->searchData('objectId', $this->session->userdata('objectId'),'main');
-		$this->session->set_userdata($profile[0]);		
-			
+
+		$token=$this->auth_model->checkSessionToken();			
+		$id=$this->session->userdata('objectId');		
+		// set session for latest data		
 		$email=$this->session->userdata('email');				
 		$name=$this->session->userdata('user_fullname');
 		$image=$this->session->userdata('user_profile_picture');
@@ -104,7 +101,7 @@ class User extends CI_Controller {
 		$phone=$this->session->userdata('user_phone');	
 		$keep_myinfo_private=$this->session->userdata('keep_myinfo_private');	
 		$keep_childreninfo_private=$this->session->userdata('keep_childreninfo_private');	
-			
+						
 		if (!empty($bdate)	){
 			$birthdate=explode('-',$bdate);
 			$year=$birthdate[0];
@@ -217,23 +214,62 @@ class User extends CI_Controller {
 				'user_interest' => '',
 				'user_newsletter' => ''
 			);					
+						
 			
-			$this->session->set_userdata($this->dataUser);
-			
-			$result=$this->signupWithDataObjectIdOther();	
+			$result=$this->signupWithDataObjectIdOther();				
 			$res=json_decode($result, TRUE);		
 		
-			if (!empty($res['objectId'])){
+			if (!empty($res['objectId'])){				
 				$return=$res['objectId'];
+				$profile=$this->searchData('objectId', $return,'main');				
 			}else{
 				$return=$this->getObjectId($email, '');
-			}
+				$profile=$this->searchData('objectId', $return,'main');				
+			}			
+			$this->session->set_userdata($profile[0]);				
 			$user_settings=$this->setUpSettings($return);
 			$this->session->set_userdata('objectId',$return);
+			$this->fbloginParse($email);
+			
 			return $return;
 		}
 				
 	}
+	
+	//login
+	public function fbloginParse($email) {	
+		
+		$this->parseUser = new parseUser;
+		$this->dataUser = $this->dataUser = array(
+							'username' => strip_tags(trim($email)),
+							'password' => ''			
+		);		
+			
+		$result=$this->loginWithFbParse();		
+		return $result;
+						
+	}
+	
+	public function loginWithFbParse(){
+
+		$loginUser = new parseUser;
+		$loginUser->username = $this->dataUser['username'];
+		$loginUser->password = $this->dataUser['password'];
+
+		$returnLogin = $loginUser->login();		
+								
+		$returnLogin;
+					
+		// set session for logged in user
+		$res=json_decode($returnLogin, TRUE);		
+		$this->session->set_userdata($res);
+		
+		$resultSearch=$this->searchUser($res['objectId'],'UserSettings');
+		$rs=json_decode($resultSearch, TRUE);		
+		$this->session->set_userdata($rs['results']['0']);
+				
+	}
+	
 	
 	public function getObjectId($username, $passwd=''){
 		$parseUser = $this->parseUser;		
@@ -375,7 +411,7 @@ class User extends CI_Controller {
 		$parseUser->keep_myinfo_private = $this->dataUser['keep_myinfo_private'];
 		$parseUser->keep_childreninfo_private = $this->dataUser['keep_childreninfo_private'];		
 
-		$return = $parseUser->setUpSettings();
+		$return = $parseUser->setUpAdd('UserSettings');
 
 		return $return;
 		
@@ -566,10 +602,53 @@ class User extends CI_Controller {
 		
 	}
 	
+	public function addChild(){
+		$token=$this->auth_model->checkSessionToken();	
+		$id=$this->uri->segment(3);
+		$objectId=$this->session->userdata('objectId');
+		$birthdate=strip_tags(trim($this->input->post('child_byear'))).'-'.strip_tags(trim($this->input->post('child_bmon'))).'-'.strip_tags(trim($this->input->post('child_bday')));		
+		$this->parseUser = new parseUser;		
+		$this->dataUser = array(
+			'user_id' => $objectId,
+			'child_fname' => $this->input->post('child-first-name'),
+			'child_lname' => $this->input->post('child-last-name'),
+			'child_dob' => $birthdate,			
+			'child_gender' => $this->input->post('child-gender'),			
+			'child_interest' => $this->input->post('child-interest'),			
+			'child_pictures' => $this->input->post('child_picture_'.$id),	
+			'child_favorite_books' => $this->input->post('child-fav-books'),			
+			'child_favorite_activities' => $this->input->post('child-fav-activities')						
+		);
+		
+		$this->session->set_userdata($this->dataUser);
+					
+		$result=$this->addChildInfoWithData($objectId);		
+		return $result;;
+	}
+	
+	public function addChildInfoWithData($objectId){	
+		$token=$this->auth_model->checkSessionToken();	
+		$parseUser = $this->parseUser;
+		$parseUser->user_id = $this->dataUser['user_id'];
+		$parseUser->child_fname = $this->dataUser['child_fname'];
+		$parseUser->child_lname = $this->dataUser['child_lname'];
+		$parseUser->child_dob = $this->dataUser['child_dob'];
+		$parseUser->child_gender = $this->dataUser['child_gender'];		
+		$parseUser->child_interest = $this->dataUser['child_interest'];
+		$parseUser->child_pictures = $this->dataUser['child_pictures'];
+		$parseUser->child_favorite_books = $this->dataUser['child_favorite_books'];
+		$parseUser->child_favorite_activities = $this->dataUser['child_favorite_activities'];
+
+		$return = $parseUser->setUpAdd('Child');		
+		print_r($return);
+		return $return;
+		
+	}
+	
 	public function updateChildInfo(){
 		$token=$this->auth_model->checkSessionToken();	
 		$id=$this->uri->segment(3);
-		$objectId=$_POST['objectId'];
+		$objectId=$this->session->userdata('objectId');
 		$birthdate=strip_tags(trim($this->input->post('child_byear'))).'-'.strip_tags(trim($this->input->post('child_bmon'))).'-'.strip_tags(trim($this->input->post('child_bday')));		
 		$this->parseUser = new parseUser;		
 		$this->dataUser = array(

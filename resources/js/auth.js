@@ -122,6 +122,7 @@
 	function loginFinishedCallback(authResult) {
 		if (authResult) {
 		  if (authResult['error'] == undefined){			
+			loading('open');
 			document.getElementById('myModalLogin').style.display='none';
 			document.getElementById('mainmodal').style.display='none';
 			gapi.client.load('plus','v1', loadProfile);  // Trigger request to get the email address.

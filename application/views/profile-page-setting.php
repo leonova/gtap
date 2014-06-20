@@ -13,7 +13,7 @@
 											<?php if (!empty($image)){?>
 													<img src="<?php echo $image; ?>" style="width:102px" />
 											<?php }else{?>
-												<img src="/resources/images/gtap.jpg" style="width:102px" />
+												<img src="/resources/images/tapg-default-user.png" style="width:102px" />
 											<?php }?>
 											<a id="editphoto">
 												<span>Edit Photo</span>
@@ -157,7 +157,7 @@
 									  			<li><input type="checkbox" id='beauty' name="your-interest[]" value="Beauty" <?php if (strpos($interest,"Beauty")>1){echo "checked";} ?> > Beauty</li>
 									  			<li><input type="checkbox" id='marriage' name="your-interest[]" value="Marriage" <?php if (strpos($interest,"Marriage")>1){echo "checked";} ?> > Marriage</li>
 									  		</ul>
-									  		<p><button type="button" class="btn btn-default" onclick="submitProfile();">Save</button></p>
+									  		<p><button type="button" id="generalsave" class="btn btn-default" onclick="submitProfile();">Save</button></p>
 									  	</form>
 									  </div>
 									  <div id="child"></div>
@@ -256,12 +256,11 @@
 										  	<p><label for="child-fav-books">Favourite books: ( seperate by commas) </label><input type="text" name="child-fav-books" class="form-control" value="<?php echo $childrenvalue[$x]['child_favorite_books'];?>" ></p>
 										  	<p><button type="button" class="btn btn-default" id="uploadbutton_<?php echo $y; ?>" name="uploadbutton_<?php echo $y; ?>" value="<?php echo $y; ?>" onclick="updateChildInfo('<?php echo $y; ?>');">Save</button>											
 									  	</form>
-										</div>
 										<?php }?>
-										
-									<div id="addchild"></div>
+										<div id="addchild"></div>
 									
-									<p><button type="button" class="btn btn-default" id="AddChild-btn">Add Child</button></p>
+										<p><button type="button" class="btn btn-default" id="AddChild-btn">Add Child</button></p>
+										</div>
 									</div>
 								</div>
 							</div>

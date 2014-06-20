@@ -51,11 +51,11 @@ class parseUser extends parseRestClient{
 	
 	}
 	
-	public function setUpSettings(){
+	public function setUpAdd($class){
 	
 			$request = $this->request(array(
 				'method' => 'POST',
-	    		'requestUrl' => 'UserSettings',
+	    		'requestUrl' => $class,
 				'data' => $this->data,
 				'action'=>'add'
 			));

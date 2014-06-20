@@ -25,7 +25,8 @@
 	</head>
 
 	<body>
-	<script src="http://connect.facebook.net/en_US/all.js"></script>	
+	<script src="http://connect.facebook.net/en_US/all.js#xfbml=1&status=0"></script>
+		<div id="fb-root"></div>	
 		<script>
 				
 		  window.fbAsyncInit = function() {
@@ -43,7 +44,7 @@
 			var js, fjs = d.getElementsByTagName(s)[0];
 			if (d.getElementById(id)) return;
 			js = d.createElement(s); js.id = id;
-			js.src = "//connect.facebook.net/en_US/sdk.js";
+			js.src = "//connect.facebook.net/en_US/all.js";
 			fjs.parentNode.insertBefore(js, fjs);
 		  }(document, 'script', 'facebook-jssdk'));
 
@@ -399,7 +400,7 @@
 										<?php if (!empty($image)){?>
 											<img src="<?php echo $image; ?>" alt="<?php echo $name; ?>" id="user_avatar" width="44" height="44" />
 										<?php }else{?>
-											<img src="/resources/images/gtap.jpg" width="44" id="user_avatar" height="44"/>
+											<img src="/resources/images/tapg-default-user.png" width="44" id="user_avatar" height="44"/>
 										<?php }?>											
 									</a>
 									<ul class="dropdown-menu user-profile-dropdown" role="menu" aria-labelledby="dropdownMenu1">
@@ -408,7 +409,7 @@
 												<?php if (!empty($image)){?>
 													<img src="<?php echo $image; ?>" id="user_image" alt="<?php echo $name; ?>" width="44" height="44" />
 												<?php }else{?>
-													<img src="/resources/images/gtap.jpg" id="user_image" width="44" height="44"/>
+													<img src="/resources/images/tapg-default-user.png" id="user_image" width="44" height="44"/>
 												<?php }?>	
 											</a>
 											<div class="media-body">
@@ -418,15 +419,12 @@
 											</div>
 										</li>
 										<li role="presentation" class="divider"></li>
-										<li role="presentation" class="tap-communities"><a role="menuitem" tabindex="-1" href="<?php echo base_url(); ?>">theAsianparent Groups</a></li>
+										<li role="presentation" class="tap-communities"><a role="menuitem" tabindex="-1" href="#">theAsianparent Groups</a></li>
 										<li role="presentation" class="divider"></li>
 										<li role="presentation"><button type="button" class="btn btn-default" onclick='logout();'  id="fb-logout">Log Out</button></li>
 									</ul>
 							<?php }?>
-						</ul>
-						
-						
-						
+						</ul>																		
 					</nav>
 				</div>
 			</header>

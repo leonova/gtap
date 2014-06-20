@@ -9,7 +9,8 @@ class Home extends CI_Controller {
 	}
 	
 	// homepage
-	public function index() {			
+	public function index() {	
+		//print_r($this->session->userdata);	
 		$id=$this->session->userdata('objectId');		
 		$email=$this->session->userdata('email');				
 		$name=$this->session->userdata('user_fullname');
