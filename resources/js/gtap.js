@@ -416,7 +416,8 @@
 			success:function(data) 
 			{			
 				$('#user_avatar').attr("src", $('#profile_picture').val());
-				$('#user_image').attr("src", $('#profile_picture').val());				
+				$('#user_image').attr("src", $('#profile_picture').val());
+				$('#user_avatar').addClass('photo-dp-s');
 				loading('close');
 				//successful session					
 			},
@@ -452,7 +453,7 @@
 												'<h2>Child '+ cnum +':</h2>'+
 												'<p class="row">'+
 													'<span class="col-xs-3" id="child_pic_'+ cnum +'">'+
-														'<img class="media-object" src="/resources/images/squre-thumbnail.jpg" alt="..."  style="width:102px">'+
+														'<img class="media-object" src="/resources/images/dp-child.png" alt="..." class="photo-dp-m">'+
 													'</span>'+
 													'<span class="col-xs-9">'+
 														'<input type="file" name="uploaded_images_'+ cnum +'" id="uploaded_images_'+ cnum +'">'+

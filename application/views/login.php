@@ -2,7 +2,7 @@
 		<div class="modal fade" id="myModalLogin"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div style="z-index:-1;width: 100%;height: 100%;position:absolute;left:0px;top:0px;" onclick="logout();" ></div>
 		  <div class="modal-dialog">
-		    <div id="dialog-login" class="modal-content" style="height: 460px;">
+		    <div id="dialog-login" class="modal-content">
 		      <div id="dialog-header" class="modal-header" style="margin-top: 0px;">
 		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="logout();">&times;</button>				
 		        <h4 class="modal-title" id="myModalLabel">Welcome back!</h4>
@@ -22,7 +22,7 @@
 		        	<p><label class="hidden">Enter your Password</label><input id="passwd" name="user_pw" type="password" class="form-control" placeholder="Enter your Password"></p>
 		        	<p><button type="button" class="btn btn-default"  onclick="tm_login();" id="btn-signin-form">Login</button></p>
 					<div class="modal-footer">
-						<p><strong>New here? <a href="/user/signup" class="toggleDialog" id="toggleSignup">Sign Up here</a></strong></p>
+						<p><strong>New here? <a href="/user/signup" class="toggleDialog inline-text" id="toggleSignup">Sign Up here</a></strong></p>
 					</div>			
 		        </form>
 				<form name="addSession" id="addSession" action="javascript;;" method="post" accept-charset="utf-8" style="display:none;">

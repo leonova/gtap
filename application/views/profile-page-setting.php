@@ -11,7 +11,7 @@
 									<figure class="col-xs-2" id="user-photo">	
 										<div id="profile_pic">
 											<?php if (!empty($image)){?>
-													<img src="<?php echo $image; ?>" style="width:102px" />
+													<img src="<?php echo $image; ?>" class="photo-dp-m" />
 											<?php }else{?>
 												<img src="/resources/images/tapg-default-user.png" style="width:102px" />
 											<?php }?>

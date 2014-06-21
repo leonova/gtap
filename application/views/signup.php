@@ -76,9 +76,10 @@
 						<input type="checkbox" value="1" id="newsletter" name="newsletter">
 						<label style="font-weight:500">Sign Up our Newsletter?</label>
 					</p>
-					<p style="margin-top: -40px; text-align:left; padding-left:55px">
-						<input type="checkbox" value="1" id="terms" name="terms">
-						<label style="font-weight:500"><a>Agree to Terms and Privacy Policy</a></label>
+					<p style="margin-bottom: 15px; text-align:left; padding-left:55px">
+						<small style="font-size:85%;">
+							By clicking Sign Up, you agree to our <a href="#" class="inline-text">Terms</a> and that you have read our <a href="#" class="inline-text">Data Use Policy</a> , including our <a href="#" class="inline-text">Cookie Use</a> .
+						</small>
 					</p>
 		        	<p>
 						<button onclick="tm_signup();" id="signup-btn" class="btn btn-default" type="button">Sign Up</button>

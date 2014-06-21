@@ -419,7 +419,7 @@
 											</div>
 										</li>
 										<li role="presentation" class="divider"></li>
-										<li role="presentation" class="tap-communities"><a role="menuitem" tabindex="-1" href="#">theAsianparent Groups</a></li>
+										<li role="presentation" class="tap-communities"><a role="menuitem" tabindex="-1" href="<?php  echo base_url(); ?>">theAsianparent Groups</a></li>
 										<li role="presentation" class="divider"></li>
 										<li role="presentation"><button type="button" class="btn btn-default" onclick='logout();'  id="fb-logout">Log Out</button></li>
 									</ul>

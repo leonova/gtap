@@ -13,7 +13,9 @@
 			$("#loginForm").submit(); 
 			return false;
 		}else{
-			alert(msg);
+			//alert(msg);
+			$('#userErrorLog').html('<strong class="errorMsg" >Invalid Email format</strong>');
+			$('#dialog-login').animate({'height':'460px'},500);
 		}
 		
 	}
@@ -25,7 +27,8 @@
 		var postData = $(this).serializeArray();		
 		var formURL = '/auth/login/';
 		e.preventDefault();
-		$('#userErrorLog').html('<img src="/resources/images/ajax-loader.gif" /> <strong style="color:red"> Checking...</span>');
+		$('#userErrorLog').html('<img src="/resources/images/ajax-loader.gif" /> <strong class="errorMsg"> Checking...</span>');
+		$('#dialog-login').animate({'height':'480px'},500);
 		$.ajax(
 		{
 			url : formURL,
@@ -39,7 +42,8 @@
 					alert('login successful');
 					reload_page('root');					
 				}else{
-					$('#userErrorLog').html('<strong style="color:red">Invalid Login </strong>');
+					$('#userErrorLog').html('<strong class="errorMsg" >Invalid Login </strong>');
+					$('#dialog-login').animate({'height':'460px'},500);
 				}
 				
 			},
