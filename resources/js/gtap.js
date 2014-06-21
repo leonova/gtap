@@ -46,10 +46,10 @@
 			msg+="Birthday Year is Required \n";
 		}
 		
-		if (document.getElementById('terms').checked == false )
+		/*if (document.getElementById('terms').checked == false )
 		{
 			msg+='Please confirm on the terms in condition to continue. \n';			
-		}
+		}*/
 						
 		if (msg==""){
 			$("#form-signup").submit(); 
