@@ -9,7 +9,7 @@
 	}
 
 	function tm_signup(){
-		var msg='';
+		var msg='';		
 		var email_address=$('#eadd').val();
 		var fullname=$('#fullname').val();
 		var passwd=$('#pw').val();
@@ -18,6 +18,7 @@
 		var bday=$('#bday').val();
 		var byear=$('#byear').val();
 						
+		$('#userErrorLog').html('<img src="/resources/images/ajax-loader.gif" /> <strong class="errorMsg"> Checking...</span>');
 		if (!alphabet(fullname)){
 			msg+='Invalid Name \n';
 		}		
@@ -52,10 +53,14 @@
 		}*/
 						
 		if (msg==""){
+			$('#userErrorLog').html('<strong class="errorMsg" ></strong>');
 			$("#form-signup").submit(); 
 			return false;
 		}else{
-			finalmsg="All fields are required: \n "+msg;
+			loading('close');
+			finalmsg="All fields are required: \n "+msg;			
+			$('#userErrorLog').html('<strong class="errorMsg" ></strong>');
+			//$('#userErrorLog').html('<strong class="errorMsg" >'+finalmsg+'</strong>');
 			alert(msg);
 			return false;
 		} 
@@ -76,7 +81,7 @@
 				success:function(data) 
 				{
 					//data: return data from server							
-					if (data=="Success"){
+					if (data=="Success" || data==""){
 						fb_logout();
 						alert('An email will be sent to verify your account');
 						reload_page();
