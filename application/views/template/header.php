@@ -398,18 +398,18 @@
 							<?php } else{?>
 								<a href="#" title="<?php echo $name; ?>" id="user-loggedin" data-toggle="dropdown">										
 										<?php if (!empty($image)){?>
-											<img src="<?php echo $image; ?>" alt="<?php echo $name; ?>" id="user_avatar" width="44" height="44" />
+											<img src="<?php echo $image; ?>" alt="<?php echo $name; ?>" id="user_avatar"  class="photo-dp-s" />
 										<?php }else{?>
-											<img src="/resources/images/tapg-default-user.png" width="44" id="user_avatar" height="44"/>
+											<img src="/resources/images/dp-user.png" id="user_avatar" class="photo-dp-s"/>
 										<?php }?>											
 									</a>
 									<ul class="dropdown-menu user-profile-dropdown" role="menu" aria-labelledby="dropdownMenu1">
 										<li class="media">
 											<a class="pull-left" href="#">
 												<?php if (!empty($image)){?>
-													<img src="<?php echo $image; ?>" id="user_image" alt="<?php echo $name; ?>" width="44" height="44" />
+													<img src="<?php echo $image; ?>" id="user_image" alt="<?php echo $name; ?>"  class="photo-dp-s"/>
 												<?php }else{?>
-													<img src="/resources/images/tapg-default-user.png" id="user_image" width="44" height="44"/>
+													<img src="/resources/images/dp-user.png" id="user_image" class="photo-dp-s"/>
 												<?php }?>	
 											</a>
 											<div class="media-body">

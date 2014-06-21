@@ -13,7 +13,7 @@
 											<?php if (!empty($image)){?>
 													<img src="<?php echo $image; ?>" class="photo-dp-m" />
 											<?php }else{?>
-												<img src="/resources/images/tapg-default-user.png" style="width:102px" />
+												<img src="/resources/images/dp-user.png"  class="photo-dp-m" />
 											<?php }?>
 											<a id="editphoto">
 												<span>Edit Photo</span>
