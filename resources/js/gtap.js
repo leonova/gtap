@@ -219,8 +219,8 @@
 				async: false,
 				success:function(data) 
 			{
-				//data: return data from server		
-				$('#uploadbutton_'+value).css('display','none');	
+				//data: return data from server						
+				$('#addchild_'+value).attr('disabled',true);	
 				loading('close');					
 			},
 			
@@ -514,7 +514,7 @@
 												'	<input type="text" name="child-fav-books" class="form-control" value="" >'+
 												'</p>'+
 												'<p>'+
-												'	<button type="button" class="btn btn-default" id="uploadbutton_'+ cnum +'" name="uploadbutton_'+ cnum +'" value="'+ cnum +'" onclick="addChild('+ cnum +');">Save</button>'+
+												'	<button type="button" class="btn btn-default" id="addchild_'+ cnum +'" name="addchild_'+ cnum +'" value="'+ cnum +'" onclick="addChild('+ cnum +');">Save</button>'+
 												'</p></form></div>'
 			$('#addchild').append(childform);			  	
 	});
