@@ -29,7 +29,8 @@ class Home extends CI_Controller {
 			'id'					=>$id,
 			'email'					=>$email,
 			'name'					=>$name,
-			'image'					=>$image
+			'image'					=>$image,
+			'session_token'		=>$this->session->userdata('sessionToken')
 		);
 				
         $this->load->view('template/header', $data);

@@ -139,7 +139,9 @@ class User extends CI_Controller {
 				'keep_myinfo_private'=>$keep_myinfo_private,
 				'keep_childreninfo_private'=>$keep_childreninfo_private,
 				'childrencount'		=>count($children),
-				'childrenvalue'		=>$children
+				'childrenvalue'		=>$children,
+				'session_token'		=>$this->session->userdata('sessionToken'),
+				'user_id'		=>$this->session->userdata('user_id')
 			);				       
 			
 			
@@ -176,9 +178,10 @@ class User extends CI_Controller {
 	}		
 			
 	//fblogin
-	public function fblogin() {			
-				
-		if (!empty($_POST)){
+	public function fblogin() {		
+		
+		if (!empty($_POST)){	
+			//$this->session->sess_destroy();
 			$user=explode('||',$this->input->post('userdata'));
 			$id=$user[0];
 			$name=$user[1].' '.$user[2];
@@ -216,21 +219,23 @@ class User extends CI_Controller {
 			);					
 						
 			
-			$result=$this->signupWithDataObjectIdOther();				
+			$result=$this->signupWithDataObjectIdOther();	
+
 			$res=json_decode($result, TRUE);		
-		
-			if (!empty($res['objectId'])){				
+			
+			if (!empty($res['objectId'])){					
 				$return=$res['objectId'];
 				$profile=$this->searchData('objectId', $return,'main');				
-			}else{
+			}else{	
 				$return=$this->getObjectId($email, '');
 				$profile=$this->searchData('objectId', $return,'main');				
-			}			
+			}	
+			
 			$this->session->set_userdata($profile[0]);				
 			$user_settings=$this->setUpSettings($return);
 			$this->session->set_userdata('objectId',$return);
 			$this->fbloginParse($email);
-			
+			print_r($this->session->userdata);
 			return $return;
 		}
 				
@@ -268,6 +273,24 @@ class User extends CI_Controller {
 		$rs=json_decode($resultSearch, TRUE);		
 		$this->session->set_userdata($rs['results']['0']);
 				
+	}
+	
+	public function searchUser($objectId,$class){
+		$parseUser = $this->parseUser;
+		$this->dataUser = array(
+			'user_id' => $objectId				
+		);
+		
+		$result=$this->queryUsersIndLogin($class);		
+		return $result;
+	}
+	
+	public function queryUsersIndLogin($class){	
+		$data= $this->dataUser['user_id'];
+		$userQuery = new parseQuery($class);		
+		$userQuery->where('user_id',$data);
+		$return = $userQuery->find();		
+		return $return;
 	}
 	
 	
@@ -352,7 +375,7 @@ class User extends CI_Controller {
 		$parseUser->user_newsletter = $this->dataUser['user_newsletter'];		
 
 		$result= $parseUser->signup();
-				
+			
 		return $result;
 											
 	}
@@ -378,13 +401,13 @@ class User extends CI_Controller {
 		$parseUser->user_newsletter = $this->dataUser['user_newsletter'];		
 
 		$result= $parseUser->signup();
-		
+		//print_r($result);	
 		
 		$res=json_decode($result, TRUE);		
 				
 		if (!empty($res['objectId'])){
-			$user_settings=$this->setUpSettings($res['objectId']);
 			$return="Success";
+			$user_settings=$this->setUpSettings($res['objectId']);			
 		}else{
 			$return="Failed";
 		}				
@@ -533,7 +556,7 @@ class User extends CI_Controller {
 		$parseUser->user_newsletter = $this->dataUser['user_newsletter'];		
 
 		$return = $parseUser->update($objectId, 'users', $id=$this->session->userdata('sessionToken'));
-
+print_r($return);
 		return $return;
 		
 	}

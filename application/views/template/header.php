@@ -51,7 +51,7 @@
 		function setUser() {
 			console.log('Welcome!  Fetching your information.... ');
 			FB.api('/me', function(response) {
-				var image="https://graph.facebook.com/"+response.id +"/picture";		
+				var image="https://graph.facebook.com/"+response.id +"/picture?type=large";		
 				var fname=response.first_name;
 				var lname=response.last_name;
 				var name=response.first_name+' '+response.last_name;
@@ -62,10 +62,7 @@
 				document.getElementById('myModalLogin').style.display='none';										
 				$("#user-loggedin").css('padding','0px');								
 				document.getElementById('userdata').value=id+'||'+fname+'||'+lname+'||'+''+'||'+email+'||'+image+'||facebook||true';												
-				submitData();
-				<?php if (empty($email)){?>	
-				document.getElementById('mainmodal').style.display='none';
-				<?php }?>
+				submitData();				
 				reload_page();
 				
 				$("body").removeClass("modal-open");				
@@ -391,14 +388,14 @@
 						</ul>
 						<ul class="login-search navbar-right">
 							<li><a href="#" title="SEARCH"><span class="glyphicon glyphicon-search"></span><span class="hidden">SEARCH</span></a></li>
-							<?php  if (empty($email)){?>
+							<?php   if (empty($session_token)){?>
 							<li id="login-thumb" class="dropdown">
 							<a title="LOGIN" data-toggle="modal" data-target="#myModal" id="user-login" style="cursor:pointer">LOGIN</a>									
 							</li>
 							<?php } else{?>
 								<a href="#" title="<?php echo $name; ?>" id="user-loggedin" data-toggle="dropdown">										
 										<?php if (!empty($image)){?>
-											<img src="<?php echo $image; ?>" id="user_avatar"  class="photo-dp-s" />
+											<img src="<?php echo $image; ?>" alt="<?php echo $name; ?>" id="user_avatar"  class="photo-dp-s" style="width:40px;height:45px;" />
 										<?php }else{?>
 											<img src="/resources/images/dp-user.png" id="user_avatar" class="photo-dp-s"/>
 										<?php }?>											
