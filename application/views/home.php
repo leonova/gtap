@@ -192,6 +192,12 @@
 							</div>
 						</section>
 					</div>
-					 <?php $this->load->view('template/side') ?>
+					<aside id="sidebar-section" class="col-xs-4">
+						<div class="optional-button row">
+							<button type="button" class="btn btn-default col-xs-12" id="pop-createGrp">Create a group</button>
+						</div>
+						<?php $this->load->view('template/side') ?>
+					 </aside>
 				</div>
 			</div>
+			<?php include('template/creategroup.php'); ?>	

@@ -1,6 +1,6 @@
 			<div id="content-section">
 				<section id="carousel-breadcrumbs-section" class="row">
-					<h4 class="breadcrumb"><a href="#">Home</a><a href="#">Communities</a>Toddler Moms</h4>
+					<h4 class="breadcrumb"><a href="#">Home</a><a href="#">Communities</a><a><?php echo $name; ?></a>Profile Settings</h4>
 				</section>
 				<div id="main-content" class="row">
 					<div id="right-content-section" class="col-xs-8">
@@ -266,9 +266,12 @@
 							</div>
 						</section>
 					</div>
-					
-					<?php include('template/side.php'); ?>	
-					
+					<aside id="sidebar-section" class="col-xs-4">
+						<div class="optional-button row">
+							<button type="button" class="btn btn-default col-xs-12" id="pop-createGrp">Create a group</button>
+						</div>
+						<?php include('template/side.php'); ?>	
+					</aside>
 				</div>
 			</div>
 <!-- end of MAIN CONTENT -->
@@ -295,8 +298,10 @@
 		    </div>
 		  </div>
 		</div>
+<?php include('template/creategroup.php'); ?>	
+
 <script>
 		$("#btn-resetpw-form").click(function(){
 			$('#DialogResetPw').modal();
-		});		    
+		});	
 </script>

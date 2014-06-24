@@ -398,7 +398,7 @@
 							<?php } else{?>
 								<a href="#" title="<?php echo $name; ?>" id="user-loggedin" data-toggle="dropdown">										
 										<?php if (!empty($image)){?>
-											<img src="<?php echo $image; ?>" alt="<?php echo $name; ?>" id="user_avatar"  class="photo-dp-s" />
+											<img src="<?php echo $image; ?>" id="user_avatar"  class="photo-dp-s" />
 										<?php }else{?>
 											<img src="/resources/images/dp-user.png" id="user_avatar" class="photo-dp-s"/>
 										<?php }?>											

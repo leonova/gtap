@@ -21,25 +21,18 @@
 					<input type="hidden" name="profile_picture" id="profile_picture">
 					</p>
 					<p>
-						</p><div class="form-msg">
+						<p><div class="form-msg">
 							 <button id="form-msg-close" class="close" type="button">×</button>
 							 <label>Sign Up Failed!</label><br>
 							 <span>Hellow!<span>
 						</span></span></div>
-					<p></p>
+						</p>
+					</p>
 					<p><label class="hidden form-field">Name</label><input type="text" required="required" placeholder="Your Name (required)" class="form-control" name="fullname" id="fullname"></p>
 					<p><label class="hidden form-field">Email Address</label><input type="email" required="required" placeholder="Email Address (required)" class="form-control" name="eadd" id="eadd"></p>
 					<p><label class="hidden form-field">Enter Password</label><input type="password" required="required" placeholder="Enter your Password (required)" class="form-control" name="pw" id="pw"></p>
 					<p><label class="hidden form-field">Re-enter Password</label><input type="password" required="required" placeholder="Re-enter your Password (required)" class="form-control" name="passwd" id="repw"></p>
 					<p style="text-align:left; padding-left:55px">
-						<!--<label class="hidden form-field">Marital Status</label>
-							<select name="maritalstat" id="signup-dob-mon" name="signup-dob-maritalstat">
-								<option value="single">Single</option>
-								<option value="married">Married</option>
-								<option value="widowed">Widowed</option>
-								<option value="divorced">Divorced</option>
-								<option value="seperated">Seperated</option>
-							</select>-->
 						<label>Birthdate</label>
 							<select id="bmonth" name="bmonth">
 								<option default="" value="">Month</option>

@@ -2,41 +2,29 @@
 				<div class="row">
 					<div class="col-xs-7">
 						<h4>Categories</h4>
-						<ul>
-							<li><a href="#">Background</a></li>
-							<li><a href="#">Contact us</a></li>
-							<li><a href="#">Advertise</a></li>
-							<li><a href="#">Privacy Policy</a></li>
-							<li><a href="#">Term &amp; Conditions</a></li>
-							<li><a href="#">Home</a></li>
-							<li><a href="#">Articles</a></li>
-							<li><a href="#">Contests</a></li>
-							<li><a href="#">Deals</a></li>
-							<li><a href="#">Directory</a></li>
-							<li><a href="#">Forum</a></li>
-							<li><a href="#">Galleries</a></li>
-							<li><a href="#">Kidlander</a></li>
-							<li><a href="#">Money Matters</a></li>
-							<li><a href="#">Baby</a></li>
-							<li><a href="#">Breastfeeding</a></li>
-							<li><a href="#">Toddler</a></li>
-							<li><a href="#">PreSchooler</a></li>
-							<li><a href="#">Primary School</a></li>
-							<li><a href="#">PSLE</a></li>
-							<li><a href="#">Weekend Guide</a></li>
-							<li><a href="#">Shopping</a></li>
-						</ul>
-					</div>
-					<div class="col-xs-3">
-						<h4>Our Network</h4>
-						<ul>
-							<li><a href="#">Malaysia</a></li>
-							<li><a href="#">Indonesia</a></li>
-							<li><a href="#">Thailand</a></li>
-							<li><a href="#">Philippines</a></li>
-							<li><a href="#">Kidlander.com</a></li>
-							<li><a href="#">Pregnant.sg</a></li>
-						</ul>
+						<div id="categories"></div>
+						<script type="text/javascript">
+							$(document).ready(function(){
+							$.getJSON( "http://sg.theasianparent.com/footer-menu/", {
+								tagmode: "any",
+								format: "json"
+							  }, function( data ) {
+							  var items = [];
+							  $.each( data, function( key, val ) {
+							  
+								items.push( "<li class='menu-item' ><a href='" + val + "'>" + key + "</a></li>" );
+							  });
+							 
+							  $('#categories').replaceWith($( "<ul/>", {
+								
+								html: items.join( "" )
+							  }));
+							  
+							})
+
+							;
+							}); 
+							</script>
 					</div>
 					<div class="col-xs-3">
 						<h4>Connect with us</h4>
