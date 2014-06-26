@@ -238,7 +238,8 @@
 		} else if (response.status === 'not_authorized') {			  
 		  
 		} else {
-			fb_signup();			 
+			fb_signup();
+			alert('close');
 		}
 		
 		return response.status;
@@ -248,6 +249,7 @@
 	    FB.login(function(response) {
 			console.log(response);
 			if (response.status=='connected'){
+				alert('open');
 				setUserFB();
 			}
 		});		  
@@ -278,6 +280,7 @@
 		} else if (response.status === 'not_authorized') {
 			// The person is logged into Facebook, but not your app.
 		} else {
+			alert('open');
 			fb_login();			
 			}
 		}
@@ -299,6 +302,7 @@
 			console.log(response);
 			if (response.status=='connected'){
 				setUser();
+				alert('close');
 			}
 	    });
 		  
