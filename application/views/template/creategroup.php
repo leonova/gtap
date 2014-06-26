@@ -20,9 +20,103 @@
 								<option value="Travel">Travel</option>
 							</select>
 					</p>
-		        	<p style="text-align:right;"><strong style="padding-right:10px; color: #f14340; cursor:pointer;" id="cancelModal">Cancel</strong><button type="button" class="btn btn-default" style="text-align: right" id="btn-createGrp" class="createGrp-nxt">Next</button></p>
+		        	<p style="text-align:right;">
+						<strong style="padding-right:10px; color: #f14340; cursor:pointer;" id="cancelModal" class="close close-exempt">Cancel</strong>
+						<button type="button" class="btn btn-default" style="text-align: right" id="btn-createGrp" class="createGrp-nxt">Next</button>
+					</p>
 		        </form>			  
-		      </div>			 		      
+		      </div>
+			  <div class="modal-div">
+				<div class="modal-body modal-extra">
+					<p class="errorMsg">Group already exists. Are you trying to join to this group:</p>
+					<div class="singleGrp">
+						<a class="pull-left" href="#">
+							<img src="resources/images/squre-thumbnail-3.jpg">
+						</a>
+						<div class="media-body">
+							<h4 class="media-heading"><a href="#">Pinay Moms Co.</a></h4>
+						</div>
+						<button type="button" class="btn btn-default createGrp-join" id="btn-joinGrp">Join</button>
+					</div>
+				</div>
+				<div class="modal-body modal-extra">
+					<h4 class="modal-title" >Suggested Groups</h4>
+					<ul class="row modalrow">
+				  		<li class="col-xs-12">
+							<div class="media">
+								<a class="pull-left" href="#">
+									
+									<img src="resources/images/squre-thumbnail-3.jpg">
+								</a>
+								<div class="media-body">
+									<h4 class="media-heading"><a href="#">We are moms</a></h4>
+								</div>
+								<button type="button" class="btn btn-default btn-row" id="btn-joinGrp">Join</button>
+							</div>
+				  		</li>
+				  		<li class="col-xs-12">
+							<div class="media">
+								<a class="pull-left" href="#">
+									
+									<img src="resources/images/squre-thumbnail-3.jpg">
+								</a>
+								<div class="media-body">
+									<h4 class="media-heading"><a href="#">D.I.Y. Nanays</a></h4>
+								</div>
+								<button type="button" class="btn btn-default btn-row" id="btn-joinGrp">Join</button>
+							</div>
+				  		</li>
+				  		<li class="col-xs-12">
+							<div class="media">
+								<a class="pull-left" href="#">
+									
+									<img src="resources/images/squre-thumbnail-3.jpg">
+								</a>
+								<div class="media-body">
+									<h4 class="media-heading"><a href="#">Mummy Always</a></h4>
+								</div>
+								<button type="button" class="btn btn-default btn-row" id="btn-joinGrp">Join</button>
+							</div>
+				  		</li>
+				  		<li class="col-xs-12">
+							<div class="media">
+								<a class="pull-left" href="#">
+									
+									<img src="resources/images/squre-thumbnail-3.jpg">
+								</a>
+								<div class="media-body">
+									<h4 class="media-heading"><a href="#">Beauty and Care Mothers</a></h4>
+								</div>
+								<button type="button" class="btn btn-default btn-row" id="btn-joinGrp">Join</button>
+							</div>
+				  		</li>
+				  		<li class="col-xs-12">
+							<div class="media">
+								<a class="pull-left" href="#">
+									
+									<img src="resources/images/squre-thumbnail-3.jpg">
+								</a>
+								<div class="media-body">
+									<h4 class="media-heading"><a href="#">Law-abiding Mums</a></h4>
+								</div>
+								<button type="button" class="btn btn-default btn-row" id="btn-joinGrp">Join</button>
+							</div>
+				  		</li>
+				  		<li class="col-xs-12">
+							<div class="media">
+								<a class="pull-left" href="#">
+									
+									<img src="resources/images/squre-thumbnail-3.jpg">
+								</a>
+								<div class="media-body">
+									<h4 class="media-heading"><a href="#">Star moms</a></h4>
+								</div>
+								<button type="button" class="btn btn-default btn-row" id="btn-joinGrp">Join</button>
+							</div>
+				  		</li>
+				  	</ul>
+				</div>
+			</div>
 		    </div>
 		  </div>
 		</div>
@@ -65,7 +159,7 @@
 						</table>
 						<div class="clearfix"></div>
 		            </div>
-				  	<p class="save-button"><button class="btn btn-default cancel-button"  style="cursor:pointer;" id="cancelModal">Cancel</button> <button class="btn btn-default">Send</button></p>	
+				  	<p class="save-button"><button class="btn btn-default cancel-button close"  style="cursor:pointer;" >Cancel</button> <button class="btn btn-default">Send</button></p>	
 				  </div>
 				  <div class="tab-pane" id="yahoo-mail">
 				  	<div class="email-account">
@@ -86,7 +180,7 @@
 						</table>
 						<div class="clearfix"></div>
 		            </div>
-				  	<p class="save-button"><button class="btn btn-default cancel-button"  style="cursor:pointer;" id="cancelModal">Cancel</button> <button class="btn btn-default">Send</button></p>
+				  	<p class="save-button"><button class="btn btn-default cancel-button close"  style="cursor:pointer;" >Cancel</button> <button class="btn btn-default">Send</button></p>
 				  </div>
 				  <div class="tab-pane" id="hotmail-mail">
 				  	<div class="email-account">
@@ -107,7 +201,7 @@
 						</table>
 						<div class="clearfix"></div>
 		            </div>
-				  	<p class="save-button"><button class="btn btn-default cancel-button"  style="cursor:pointer;" id="cancelModal">Cancel</button> <button class="btn btn-default">Send</button></p>
+				  	<p class="save-button"><button class="btn btn-default cancel-button close"  style="cursor:pointer;" >Cancel</button> <button class="btn btn-default">Send</button></p>
 				  </div>
 				  <div class="tab-pane" id="facebook-mail">
 				  	<div class="email-account">
@@ -120,7 +214,7 @@
 				  	<ul class="row">
 				  		
 				  	</ul>
-				  	<p class="save-button"><button class="btn btn-default cancel-button"  style="cursor:pointer;" id="cancelModal">Cancel</button> <button class="btn btn-default">Send</button></p>
+				  	<p class="save-button"><button class="btn btn-default cancel-button close"  style="cursor:pointer;" >Cancel</button> <button class="btn btn-default">Send</button></p>
 				  </div>
 				  <div class="tab-pane" id="other-mail">
 				  	<div class="email-account">
@@ -141,7 +235,7 @@
 						</table>
 						<div class="clearfix"></div>
 		            </div>
-				  	<p class="save-button"><button class="btn btn-default cancel-button" style="cursor:pointer;" id="cancelModal">Cancel</button> <button class="btn btn-default">Send</button></p>
+				  	<p class="save-button"><button class="btn btn-default cancel-button close close" style="cursor:pointer;">Cancel</button> <button class="btn btn-default">Send</button></p>
 				  </div>
 				</div>
 		      </div>
@@ -151,7 +245,7 @@
 
 
 <script>
-		$("#pop-createGrp").click(function(){
+		$("#pop-createGrp").not(".nonMemfunc").click(function(){
 			$('#DialogCreateGrp').modal();
 		});	
 		$("#btn-createGrp").click(function(){
@@ -165,9 +259,28 @@
 			}
 
 		});	
+		
+		function clearfields(){
+			$("#userErrorLog").html('');
+			$('#grpname').val("");
+			$('#category').val("");
+		}
 			
-		$("#cancelModal").click(function(){
+		$(".close").click(function(){
 			$('#DialogCreateGrp').modal('hide');
 			$('#ModalInviteFriends').modal('hide');
+			clearfields();
 		});
+		
+		function showgrp(){
+			var modaldivH = $(".modal-div").height();
+			if(modaldivH > 1){
+				$(".modal-div").animate({'height':'0px'},800);
+			}
+			else{
+				$(".modal-div").animate({'height': '555px'},800);
+			}
+			//$(".modal-div").animate({'height':'0px'},800);
+		}
+		
 </script>

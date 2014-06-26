@@ -62,7 +62,7 @@
 				document.getElementById('myModalLogin').style.display='none';										
 				$("#user-loggedin").css('padding','0px');								
 				document.getElementById('userdata').value=id+'||'+fname+'||'+lname+'||'+''+'||'+email+'||'+image+'||facebook||true';												
-				submitData();				
+				submitData();
 				reload_page();
 				
 				$("body").removeClass("modal-open");				
@@ -83,319 +83,98 @@
 						<a href="#"><img src="/resources/images/leader-board.png"/></a>
 					</figure>
 					<nav id="navbar-main-nav" class="navbar-collapse navbar-default collapse" role="navigation">
-						<ul class="nav navbar-nav">
-							<li class="dropdown"><a href="#" title="BABY" class="dropdown-toggle" data-toggle="dropdown">BABY <b class="caret"></b></a>
-							  <div class="dropdown-menu main-menu-dropdown row">
-							  	<div class="col-xs-3">
-							  		<h3>Topics</h3>
-						            <ul>
-						            	<li><a href="#">Pre-School</a></li>
-						                <li><a href="#">Kindergarten</a></li>
-						                <li><a href="#">Primary school</a></li>
-						                <li><a href="#">PSLE</a></li>
-						                <li><a href="#">Studying Tips</a></li>
-						                <li><a href="#" class="all-topics">All health topics ></a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Latest</h3>
-						            <ul>
-						            	<li><a href="#">Top 5 toastmaster programs for children in Singapore</a></li>
-						                <li><a href="#">Miley Cyrus vs Sinead O'Connor part 2 - Lessons for our daughters</a></li>
-						                <li><a href="#">5 Common new-mom challenges</a></li>
-						                <li><a href="#">Party baloon sculptors in Singapore</a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Popular</h3>
-						            <ul>
-						            	<li><a href="#">Wong Li Lin's keeping her divorce reasons a secret - 7 reasons why marriages fail</a></li>
-						                <li><a href="#">Irresistibly yummy fruit gummies 12 days of Christmas BIG ‘gift-aways</a></li>
-						                <li><a href="#">Party baloon sculptors in Singapore</a></li>
-						                <li><a href="#">Christmas traditions around the world</a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Latest</h3>
-						            <figure>
-						            	<a href="#">
-						            		<img src="/resources/images/dropdown-featured.png" alt="title" />
-						            		<h3>10 bizarre yet natural home remedies!</h3>
-						            	</a>
-						            </figure>
-					            </div>
-				              	<h4 class="col-xs-12"><a href="#" class="all-topics">View more featured articles ></a></h4>
-				              </div>
-							</li>
-							<li class="dropdown"><a href="#" title="TODDLER" class="dropdown-toggle" data-toggle="dropdown">TODDLER <b class="caret"></b></a>
-							  <div class="dropdown-menu main-menu-dropdown row">
-							  	<div class="col-xs-3">
-							  		<h3>Topics</h3>
-						            <ul>
-						            	<li><a href="#">Pre-School</a></li>
-						                <li><a href="#">Kindergarten</a></li>
-						                <li><a href="#">Primary school</a></li>
-						                <li><a href="#">PSLE</a></li>
-						                <li><a href="#">Studying Tips</a></li>
-						                <li><a href="#" class="all-topics">All health topics ></a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Latest</h3>
-						            <ul>
-						            	<li><a href="#">Top 5 toastmaster programs for children in Singapore</a></li>
-						                <li><a href="#">Miley Cyrus vs Sinead O'Connor part 2 - Lessons for our daughters</a></li>
-						                <li><a href="#">5 Common new-mom challenges</a></li>
-						                <li><a href="#">Party baloon sculptors in Singapore</a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Popular</h3>
-						            <ul>
-						            	<li><a href="#">Wong Li Lin's keeping her divorce reasons a secret - 7 reasons why marriages fail</a></li>
-						                <li><a href="#">Irresistibly yummy fruit gummies 12 days of Christmas BIG ‘gift-aways</a></li>
-						                <li><a href="#">Party baloon sculptors in Singapore</a></li>
-						                <li><a href="#">Christmas traditions around the world</a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Latest</h3>
-						            <figure>
-						            	<a href="#">
-						            		<img src="/resources/images/dropdown-featured.png" alt="title" />
-						            		<h3>10 bizarre yet natural home remedies!</h3>
-						            	</a>
-						            </figure>
-					            </div>
-				              	<h4 class="col-xs-12"><a href="#" class="all-topics">View more featured articles ></a></h4>
-				              </div>
-							</li>
-							<li class="dropdown"><a href="#" title="PRE-SCHOOLER" class="dropdown-toggle" data-toggle="dropdown">PRE-SCHOOLER <b class="caret"></b></a>
-							  <div class="dropdown-menu main-menu-dropdown row">
-							  	<div class="col-xs-3">
-							  		<h3>Topics</h3>
-						            <ul>
-						            	<li><a href="#">Pre-School</a></li>
-						                <li><a href="#">Kindergarten</a></li>
-						                <li><a href="#">Primary school</a></li>
-						                <li><a href="#">PSLE</a></li>
-						                <li><a href="#">Studying Tips</a></li>
-						                <li><a href="#" class="all-topics">All health topics ></a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Latest</h3>
-						            <ul>
-						            	<li><a href="#">Top 5 toastmaster programs for children in Singapore</a></li>
-						                <li><a href="#">Miley Cyrus vs Sinead O'Connor part 2 - Lessons for our daughters</a></li>
-						                <li><a href="#">5 Common new-mom challenges</a></li>
-						                <li><a href="#">Party baloon sculptors in Singapore</a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Popular</h3>
-						            <ul>
-						            	<li><a href="#">Wong Li Lin's keeping her divorce reasons a secret - 7 reasons why marriages fail</a></li>
-						                <li><a href="#">Irresistibly yummy fruit gummies 12 days of Christmas BIG ‘gift-aways</a></li>
-						                <li><a href="#">Party baloon sculptors in Singapore</a></li>
-						                <li><a href="#">Christmas traditions around the world</a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Latest</h3>
-						            <figure>
-						            	<a href="#">
-						            		<img src="/resources/images/dropdown-featured.png" alt="title" />
-						            		<h3>10 bizarre yet natural home remedies!</h3>
-						            	</a>
-						            </figure>
-					            </div>
-				              	<h4 class="col-xs-12"><a href="#" class="all-topics">View more featured articles ></a></h4>
-				              </div>
-							</li>
-							<li class="dropdown"><a href="#" title="BIGGER KID" class="dropdown-toggle" data-toggle="dropdown">BIGGER KID <b class="caret"></b></a>
-							  <div class="dropdown-menu main-menu-dropdown row">
-							  	<div class="col-xs-3">
-							  		<h3>Topics</h3>
-						            <ul>
-						            	<li><a href="#">Pre-School</a></li>
-						                <li><a href="#">Kindergarten</a></li>
-						                <li><a href="#">Primary school</a></li>
-						                <li><a href="#">PSLE</a></li>
-						                <li><a href="#">Studying Tips</a></li>
-						                <li><a href="#" class="all-topics">All health topics ></a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Latest</h3>
-						            <ul>
-						            	<li><a href="#">Top 5 toastmaster programs for children in Singapore</a></li>
-						                <li><a href="#">Miley Cyrus vs Sinead O'Connor part 2 - Lessons for our daughters</a></li>
-						                <li><a href="#">5 Common new-mom challenges</a></li>
-						                <li><a href="#">Party baloon sculptors in Singapore</a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Popular</h3>
-						            <ul>
-						            	<li><a href="#">Wong Li Lin's keeping her divorce reasons a secret - 7 reasons why marriages fail</a></li>
-						                <li><a href="#">Irresistibly yummy fruit gummies 12 days of Christmas BIG ‘gift-aways</a></li>
-						                <li><a href="#">Party baloon sculptors in Singapore</a></li>
-						                <li><a href="#">Christmas traditions around the world</a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Latest</h3>
-						            <figure>
-						            	<a href="#">
-						            		<img src="/resources/images/dropdown-featured.png" alt="title" />
-						            		<h3>10 bizarre yet natural home remedies!</h3>
-						            	</a>
-						            </figure>
-					            </div>
-				              	<h4 class="col-xs-12"><a href="#" class="all-topics">View more featured articles ></a></h4>
-				              </div>
-							</li>
-							<li class="dropdown"><a href="#" title="EDUCATION" class="dropdown-toggle" data-toggle="dropdown">EDUCATION <b class="caret"></b></a>
-							  <div class="dropdown-menu main-menu-dropdown row">
-							  	<div class="col-xs-3">
-							  		<h3>Topics</h3>
-						            <ul>
-						            	<li><a href="#">Pre-School</a></li>
-						                <li><a href="#">Kindergarten</a></li>
-						                <li><a href="#">Primary school</a></li>
-						                <li><a href="#">PSLE</a></li>
-						                <li><a href="#">Studying Tips</a></li>
-						                <li><a href="#" class="all-topics">All health topics ></a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Latest</h3>
-						            <ul>
-						            	<li><a href="#">Top 5 toastmaster programs for children in Singapore</a></li>
-						                <li><a href="#">Miley Cyrus vs Sinead O'Connor part 2 - Lessons for our daughters</a></li>
-						                <li><a href="#">5 Common new-mom challenges</a></li>
-						                <li><a href="#">Party baloon sculptors in Singapore</a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Popular</h3>
-						            <ul>
-						            	<li><a href="#">Wong Li Lin's keeping her divorce reasons a secret - 7 reasons why marriages fail</a></li>
-						                <li><a href="#">Irresistibly yummy fruit gummies 12 days of Christmas BIG ‘gift-aways</a></li>
-						                <li><a href="#">Party baloon sculptors in Singapore</a></li>
-						                <li><a href="#">Christmas traditions around the world</a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Latest</h3>
-						            <figure>
-						            	<a href="#">
-						            		<img src="/resources/images/dropdown-featured.png" alt="title" />
-						            		<h3>10 bizarre yet natural home remedies!</h3>
-						            	</a>
-						            </figure>
-					            </div>
-				              	<h4 class="col-xs-12"><a href="#" class="all-topics">View more featured articles ></a></h4>
-				              </div>
-							</li>
-							<li class="dropdown"><a href="#" title="HEALTH" class="dropdown-toggle" data-toggle="dropdown">HEALTH <b class="caret"></b></a>
-							  <div class="dropdown-menu main-menu-dropdown row">
-							  	<div class="col-xs-3">
-							  		<h3>Topics</h3>
-						            <ul>
-						            	<li><a href="#">Pre-School</a></li>
-						                <li><a href="#">Kindergarten</a></li>
-						                <li><a href="#">Primary school</a></li>
-						                <li><a href="#">PSLE</a></li>
-						                <li><a href="#">Studying Tips</a></li>
-						                <li><a href="#" class="all-topics">All health topics ></a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Latest</h3>
-						            <ul>
-						            	<li><a href="#">Top 5 toastmaster programs for children in Singapore</a></li>
-						                <li><a href="#">Miley Cyrus vs Sinead O'Connor part 2 - Lessons for our daughters</a></li>
-						                <li><a href="#">5 Common new-mom challenges</a></li>
-						                <li><a href="#">Party baloon sculptors in Singapore</a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Popular</h3>
-						            <ul>
-						            	<li><a href="#">Wong Li Lin's keeping her divorce reasons a secret - 7 reasons why marriages fail</a></li>
-						                <li><a href="#">Irresistibly yummy fruit gummies 12 days of Christmas BIG ‘gift-aways</a></li>
-						                <li><a href="#">Party baloon sculptors in Singapore</a></li>
-						                <li><a href="#">Christmas traditions around the world</a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Latest</h3>
-						            <figure>
-						            	<a href="#">
-						            		<img src="/resources/images/dropdown-featured.png" alt="title" />
-						            		<h3>10 bizarre yet natural home remedies!</h3>
-						            	</a>
-						            </figure>
-					            </div>
-				              	<h4 class="col-xs-12"><a href="#" class="all-topics">View more featured articles ></a></h4>
-				              </div>
-							</li>
-							<li class="dropdown"><a href="#" title="HOLIDAY" class="dropdown-toggle" data-toggle="dropdown">HOLIDAY <b class="caret"></b></a>
-							  <div class="dropdown-menu main-menu-dropdown row">
-							  	<div class="col-xs-3">
-							  		<h3>Topics</h3>
-						            <ul>
-						            	<li><a href="#">Pre-School</a></li>
-						                <li><a href="#">Kindergarten</a></li>
-						                <li><a href="#">Primary school</a></li>
-						                <li><a href="#">PSLE</a></li>
-						                <li><a href="#">Studying Tips</a></li>
-						                <li><a href="#" class="all-topics">All health topics ></a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Latest</h3>
-						            <ul>
-						            	<li><a href="#">Top 5 toastmaster programs for children in Singapore</a></li>
-						                <li><a href="#">Miley Cyrus vs Sinead O'Connor part 2 - Lessons for our daughters</a></li>
-						                <li><a href="#">5 Common new-mom challenges</a></li>
-						                <li><a href="#">Party baloon sculptors in Singapore</a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Popular</h3>
-						            <ul>
-						            	<li><a href="#">Wong Li Lin's keeping her divorce reasons a secret - 7 reasons why marriages fail</a></li>
-						                <li><a href="#">Irresistibly yummy fruit gummies 12 days of Christmas BIG ‘gift-aways</a></li>
-						                <li><a href="#">Party baloon sculptors in Singapore</a></li>
-						                <li><a href="#">Christmas traditions around the world</a></li>
-						            </ul>
-					            </div>
-							  	<div class="col-xs-3">
-							  		<h3>Latest</h3>
-						            <figure>
-						            	<a href="#">
-						            		<img src="/resources/images/dropdown-featured.png" alt="title" />
-						            		<h3>10 bizarre yet natural home remedies!</h3>
-						            	</a>
-						            </figure>
-					            </div>
-				              	<h4 class="col-xs-12"><a href="#" class="all-topics">View more featured articles ></a></h4>
-				              </div>
-							</li>
-						</ul>
-						<ul class="login-search navbar-right">
+						
+							<div id="top-navigation"></div>
+						<script type="text/javascript">
+$(document).ready(function(){
+$.getJSON( "http://sg.theasianparent.com/menu/?123", {
+    tagmode: "any",
+    format: "json"
+  }, function( data ) {
+  var items = [];
+  $.each( data, function( key, val ) {
+  
+    items.push( "<li class='menu-item' ><a href='" + val.Url + "'>" + key + "<b class='caret'></b>");
+	items.push( "</a>");
+	
+	var dataTopic = [];
+	dataTopic = val.Topics;	
+	var topicCount = Object.getOwnPropertyNames(dataTopic).length;
+	if(topicCount > 1){
+	items.push( "<div class='dropdown-menu main-menu-dropdown row'>");	
+	
+	items.push( "<div class='col-xs-2'>");	
+	
+	items.push( "<h3>Topics</h3>");
+	items.push( "<ul >");	
+	$.each(dataTopic , function(key , value){ // First Level
+           items.push( "<li><a href='" + value.Url +"'>" + value.Title + "</a></li>");        
+            });	
+	items.push( "</ul>");
+	
+	items.push("</div>");
+	items.push( "<div class='col-xs-10'>");
+	items.push( "<div class='col-xs-4'>");	
+	dataLatest = val.Latest;	
+	var latestCount = Object.getOwnPropertyNames(dataLatest).length;
+	if(latestCount > 1){
+	items.push( "<h3>Latest</h3>");	
+	$.each(dataLatest , function(key , value){ 
+           items.push( "<p><a href='" + value.Url +"'>" + value.Title + "</a></p>");        
+            });
+    }			
+	items.push( "</div>");
+	items.push( "<div class='col-xs-4'>");
+	dataHighlight = val.Highlights;	
+	var highlightCount = Object.getOwnPropertyNames(dataHighlight).length;
+	if(highlightCount > 1){
+	items.push( "<h3>Highlights</h3>");		
+	$.each(dataHighlight , function(key , value){ 
+           items.push( "<p><a href='" + value.Url +"'>" + value.Title + "</a></p>");        
+            });
+    }			
+	
+	items.push( "</div>");
+	items.push( "<div class='col-xs-4'>");	
+	dataFeatured = val.Featured;	
+	var featuredCount = Object.getOwnPropertyNames(dataFeatured).length;
+	if(featuredCount > 1){
+	items.push( "<h3>Featured</h3>");		
+	$.each(dataFeatured , function(key , value){ 
+           items.push( "<p><a href='" + value.Url +"'>");
+		   items.push( "<img width='186' height='124' src='" + value.Image + "' />");
+		   items.push( "<br />" + value.Title + "</a></p>");        
+            });
+    }		
+	items.push( "</div>");
+	items.push( "</div>");
+	
+	items.push( "</div>");
+	}
+	items.push( "</li>" );
+  });
+  $('#top-navigation').replaceWith($( "<ul/>", {
+    "class": "nav navbar-nav",
+    html: items.join( "" )
+  }));
+  
+})
+
+;
+}); 
+</script>
+
+						
+						<ul class="login-search navbar-right" style="margin-bottom:0px;">
 							<li><a href="#" title="SEARCH"><span class="glyphicon glyphicon-search"></span><span class="hidden">SEARCH</span></a></li>
-							<?php   if (empty($session_token)){?>
+							<?php  if (empty($session_token)){?>
 							<li id="login-thumb" class="dropdown">
 							<a title="LOGIN" data-toggle="modal" data-target="#myModal" id="user-login" style="cursor:pointer">LOGIN</a>									
 							</li>
 							<?php } else{?>
 								<a href="#" title="<?php echo $name; ?>" id="user-loggedin" data-toggle="dropdown">										
 										<?php if (!empty($image)){?>
-											<img src="<?php echo $image; ?>" alt="<?php echo $name; ?>" id="user_avatar"  class="photo-dp-s" style="width:40px;height:45px;" />
+											<img src="<?php echo $image; ?>" id="user_avatar"  class="photo-dp-s" />
 										<?php }else{?>
 											<img src="/resources/images/dp-user.png" id="user_avatar" class="photo-dp-s"/>
 										<?php }?>											

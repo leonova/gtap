@@ -194,7 +194,11 @@
 					</div>
 					<aside id="sidebar-section" class="col-xs-4">
 						<div class="optional-button row">
+							<?php  if (empty($session_token)){?>
+							<a href="<?php  echo base_url(); ?>"><button type="button" class="btn btn-default col-xs-12 nonMemfunc" id="pop-createGrp">Create a group</button></a>
+							<?php } else{?>
 							<button type="button" class="btn btn-default col-xs-12" id="pop-createGrp">Create a group</button>
+							<?php }?>	
 						</div>
 						<?php $this->load->view('template/side') ?>
 					 </aside>
