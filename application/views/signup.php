@@ -1,7 +1,7 @@
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"  id="myModalLogin" class="modal fade" >
 		  <div style="z-index:-1;width: 100%;height: 100%;position:absolute;left:0px;top:0px;" onclick="logout();" ></div>
 		  <div class="modal-dialog">
-		    <div id="dialog-login" class="modal-content" style="height: 700px;" >
+		    <div id="dialog-login" class="modal-content" >
 		      <div id="dialog-header" class="modal-header" style="margin-top: 0px;">		      		      		      
 			  <!-- Sign Up Dialog -->
 			   <div class="modal-header">
@@ -28,6 +28,7 @@
 						</span></span></div>
 						</p>
 					</p>
+					<div id='userErrorLog'></div>
 					<p><label class="hidden form-field">Name</label><input type="text" required="required" placeholder="Your Name (required)" class="form-control" name="fullname" id="fullname"></p>
 					<p><label class="hidden form-field">Email Address</label><input type="email" required="required" placeholder="Email Address (required)" class="form-control" name="eadd" id="eadd"></p>
 					<p><label class="hidden form-field">Enter Password</label><input type="password" required="required" placeholder="Enter your Password (required)" class="form-control" name="pw" id="pw"></p>

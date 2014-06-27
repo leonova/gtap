@@ -10,10 +10,11 @@
 		      <div class="modal-body">
 			  <div id='userErrorLog'></div>
 		        <form name="createGrpForm" id="createGrpForm"  method="POST" action="javascript;;" accept-charset="utf-8" class="signin-form">
-		        	<p style="text-align:left;"><label>Group Name</label><br><input id="grpname" name="grpname" type="text" class="form-control" placeholder="Type a name for your group"></p>
+		        	<p style="text-align:left;"><label>Group Name</label><br><input id="group_name" name="group_name" type="text" class="form-control" placeholder="Type a name for your group"></p>
+					<p style="text-align:left;"><label>Group Description</label><br><input id="group_description" name="group_description" type="text" class="form-control" placeholder="Give description for your group"></p>
 		        	<p style="text-align:left;">
 						<label>Group Category</label><br>
-							<select id="category" name="category">
+							<select id="group_category" name="group_category">
 								<option value="">Pick Category</option>
 								<option value="General Health">General Health</option>
 								<option value="Beauty">Beauty</option>
@@ -249,7 +250,7 @@
 			$('#DialogCreateGrp').modal();
 		});	
 		$("#btn-createGrp").click(function(){
-			if( $('#grpname').val() == "" || $('#category').val() == "" ){
+			if( $('#group_name').val() == "" || $('#group_category').val() == ""  || $('#group_description').val() == ""){
 				$("#userErrorLog").html('<strong class="errorMsg" >Please complete the form</strong>');
 				//alert('ohno');
 			}
@@ -262,8 +263,9 @@
 		
 		function clearfields(){
 			$("#userErrorLog").html('');
-			$('#grpname').val("");
-			$('#category').val("");
+			$('#group_name').val("");
+			$('#group_category').val("");
+			$('#group_description').val("");
 		}
 			
 		$(".close").click(function(){

@@ -16,7 +16,9 @@
 		        <p><span class="separator">or</span>Enter your Email address and password!</p>
 		      </div>
 		      <div class="modal-body">
-			  <div id='userErrorLog'></div>
+			  <div id='userErrorLog'>
+				
+			  </div>
 		        <form name="loginForm" id="loginForm"  method="POST" action="javascript;;" accept-charset="utf-8" class="signin-form">
 		        	<p><label class="hidden">Email Address</label><input id="email_add" name="user_email" type="text" class="form-control" placeholder="Email Address"></p>
 		        	<p><label class="hidden">Enter your Password</label><input id="passwd" name="user_pw" type="password" class="form-control" placeholder="Enter your Password"></p>

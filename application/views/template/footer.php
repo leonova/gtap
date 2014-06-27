@@ -27,6 +27,17 @@
 							</script>
 					</div>
 					<div class="col-xs-3">
+						<h4>Our Network</h4>
+						<ul>
+							<li><a href="#">Malaysia</a></li>
+							<li><a href="#">Indonesia</a></li>
+							<li><a href="#">Thailand</a></li>
+							<li><a href="#">Philippines</a></li>
+							<li><a href="#">Kidlander.com</a></li>
+							<li><a href="#">Pregnant.sg</a></li>
+						</ul>
+					</div>
+					<div class="col-xs-3">
 						<h4>Connect with us</h4>
 						<p class="social-network-icon-list"><a href="#" class="facebook"><span class="hidden">Facebook</span></a><a href="#" class="twitter"><span class="hidden">Twitter</span></a><a href="#" class="google-plus"><span class="hidden">Google+</span></a><a href="#" class="pinterest"><span class="hidden">Pinterest</span></a></p>
 					</div>
@@ -70,7 +81,9 @@
 					<p><span class="separator">or</span>Enter your Email address and password!</p>
 				  </div>
 				  <div class="modal-body">
-				  <div id='userErrorLog'></div>
+				  <div id='userErrorLog'>
+					<!--<strong class="errorMsg"></strong>-->
+				  </div>
 					<form name="loginForm" id="loginForm"  method="POST" action="javascript;;" accept-charset="utf-8" class="signin-form">
 						<p><label class="hidden">Email Address</label><input id="email_add" name="user_email" type="text" class="form-control" placeholder="Email Address"></p>
 						<p><label class="hidden">Enter your Password</label><input id="passwd" name="user_pw" type="password" class="form-control" placeholder="Enter your Password"></p>

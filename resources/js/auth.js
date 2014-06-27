@@ -13,9 +13,9 @@
 			$("#loginForm").submit(); 
 			return false;
 		}else{
-			//alert(msg);
-			$('#userErrorLog').html('<strong class="errorMsg" >Invalid Email format</strong>');
-			$('#dialog-login').animate({'height':'460px'},500);
+			//alert('helyeah');
+			$('#userErrorLog').html('<strong class="errorMsg">Invalid Email format</strong>');
+			//$('#dialog-login').animate({'height':'460px'},500);
 		}
 		
 	}
@@ -28,7 +28,7 @@
 		var formURL = '/auth/login/';
 		e.preventDefault();
 		$('#userErrorLog').html('<img src="/resources/images/ajax-loader.gif" /> <strong class="errorMsg"> Checking...</span>');
-		$('#dialog-login').animate({'height':'480px'},500);
+		//$('#dialog-login').animate({'height':'480px'},500);
 		$.ajax(
 		{
 			url : formURL,
@@ -43,7 +43,8 @@
 					reload_page('root');					
 				}else{
 					$('#userErrorLog').html('<strong class="errorMsg" >Invalid Login </strong>');
-					$('#dialog-login').animate({'height':'460px'},500);
+					loading('close');
+					//$('#dialog-login').animate({'height':'460px'},500);
 				}
 				
 			},
@@ -239,7 +240,6 @@
 		  
 		} else {
 			fb_signup();
-			alert('close');
 		}
 		
 		return response.status;
@@ -249,7 +249,6 @@
 	    FB.login(function(response) {
 			console.log(response);
 			if (response.status=='connected'){
-				alert('open');
 				setUserFB();
 			}
 		});		  
@@ -280,7 +279,6 @@
 		} else if (response.status === 'not_authorized') {
 			// The person is logged into Facebook, but not your app.
 		} else {
-			alert('open');
 			fb_login();			
 			}
 		}
@@ -301,8 +299,8 @@
 	    FB.login(function(response) {
 			console.log(response);
 			if (response.status=='connected'){
+				$('#userErrorLog').html('<img src="/resources/images/ajax-loader.gif" /> <strong class="errorMsg"> Checking...</span>');
 				setUser();
-				alert('close');
 			}
 	    });
 		  
